@@ -1,0 +1,39 @@
+<mat-toolbar color="primary">
+  Survey example
+</mat-toolbar>
+
+<div class="basic-container">
+  <form [formGroup]="form" (submit)="submitForm(form)">
+
+    <mat-accordion>
+
+      <mat-expansion-panel *ngFor="let question of questions; trackBy: trackByFn">
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ question.label }}
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <mat-form-field *ngFor="let response of question.responses; let responseIndex=index">
+          <label [for]="'response'+responseIndex">{{response.label}}</label>
+
+          <!-- Map responses values to the response content via hidden inputs -->
+          <div [formGroupName]="getFormGroupIndexByQuestionAndResponseCode(question.code, response.code)">
+            <input type="hidden" formControlName="questionCode" />
+            <input type="hidden" formControlName="responseCode" />
+            <input type="text" matInput id="'response'+responseIndex" formControlName="value" />
+          </div>
+        </mat-form-field>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <div class="submit-button">
+      <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">Send</button>
+    </div>
+
+  </form>
+</div>
