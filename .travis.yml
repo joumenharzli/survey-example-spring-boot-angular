@@ -16,7 +16,7 @@ matrix:
     - language: java
       jdk: oraclejdk8
       script:
-        - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        - ./mvnw test -B -q
       before_script:
         - cd ./backend/
 
@@ -24,8 +24,10 @@ matrix:
       node_js: stable
       install:
         - npm install
+      before_install:
+        - cd ./frontend/
       script:
-        - npm run ci
+        - npm run build
       before_script:
         - cd ./frontend/
         - export DISPLAY=:99.0
