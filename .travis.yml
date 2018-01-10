@@ -26,9 +26,7 @@ matrix:
         - npm install
       before_install:
         - cd ./frontend/
-      script:
-        - npm run build
-      before_script:
-        - cd ./frontend/
         - export DISPLAY=:99.0
         - sh -e /etc/init.d/xvfb start
+      script:
+        - npm run build
