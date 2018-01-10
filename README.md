@@ -5,6 +5,8 @@
 <img src="https://angular.io/assets/images/logos/angular/angular.png" height="200px"/>
 </p>
 
+[![Build Status](https://travis-ci.org/joumenharzli/survey-example-spring-boot-angular.svg?branch=master)](https://travis-ci.org/joumenharzli/survey-example-spring-boot-angular)
+
 ## Introduction
 This is a survey example using Spring Boot, Angular 5, Reactive Froms, Angular Material H2 and JDBC  
 
