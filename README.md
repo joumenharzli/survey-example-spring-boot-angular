@@ -7,9 +7,17 @@
 
 [![Build Status](https://travis-ci.org/joumenharzli/survey-example-spring-boot-angular.svg?branch=master)](https://travis-ci.org/joumenharzli/survey-example-spring-boot-angular)
 
-## Introduction
-This is a survey example using Spring Boot, Angular 5, Reactive Froms, Angular Material H2 and JDBC  
+## Overview
+This is a survey example using Spring Boot, Angular 5, Reactive Froms, Angular Material H2 an
 
 ## Launch
-Simply run ```bash ./backend/mvnw spring-boot:run``` to launch the backend
-and run ```bash ./frontend/yarn && yarn start``` to launch the frontend
+To launch the backend simply run 
+```
+$./backend/mvnw spring-boot:run
+``` 
+
+And to launch the frontend run 
+```
+$ ./frontend/yarn && yarn start
+``` 
+
