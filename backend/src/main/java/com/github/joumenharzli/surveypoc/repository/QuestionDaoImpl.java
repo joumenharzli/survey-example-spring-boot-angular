@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.github.joumenharzli.surveypoc.domain.Question;
 import com.github.joumenharzli.surveypoc.domain.Subject;
+import com.github.joumenharzli.surveypoc.exception.DaoException;
 
 /**
- * QuestionDaoImpl
+ * Question dao default implementation
  *
  * @author Joumen HARZLI
  */
@@ -32,10 +33,15 @@ public class QuestionDaoImpl implements QuestionDao {
    * find all the subjects and their questions
    *
    * @return a list of the questions with subjects
+   * @throws DaoException if there is an sql exception
    */
   @Override
-  public List<Question> findAllSubjectsAndQuestions() throws SQLException {
-    return jdbcTemplate.query(SELECT_SUBJECTS_QUESTIONS, (rs, rowNum) -> toQuestionWithSubject(rs));
+  public List<Question> findAllSubjectsAndQuestions() {
+    try {
+      return jdbcTemplate.query(SELECT_SUBJECTS_QUESTIONS, (rs, rowNum) -> toQuestionWithSubject(rs));
+    } catch (Exception exception) {
+      throw new DaoException("Unable to find subjects and questions", exception);
+    }
   }
 
   private Question toQuestionWithSubject(ResultSet resultSet) throws SQLException {
