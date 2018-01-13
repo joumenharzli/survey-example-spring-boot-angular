@@ -39,7 +39,7 @@ public class SubjectDto {
   }
 
   public void addQuestion(QuestionDto question) {
-    Assert.notNull(questions, String.format("Cannot add null question to the list of questions in the subject %s",
+    Assert.notNull(question, String.format("Cannot add null question to the list of questions in the subject %s",
         this.toString()));
 
     if (questions == null) {
