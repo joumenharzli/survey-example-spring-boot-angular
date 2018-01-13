@@ -3,6 +3,8 @@ package com.github.joumenharzli.surveypoc.service.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.Assert;
+
 /**
  * SubjectDto
  *
@@ -29,13 +31,21 @@ public class SubjectDto {
     this.label = label;
   }
 
-  public void addQuestion(QuestionDto question) {
-    if (question != null) {
-      if (questions == null) {
-        questions = new ArrayList<>();
-      }
-      questions.add(question);
+  public void addQuestions(List<QuestionDto> questions) {
+    Assert.notNull(questions, String.format("Cannot add null questions to subject %s", this.toString()));
+    if (!questions.isEmpty()) {
+      questions.forEach(this::addQuestion);
     }
+  }
+
+  public void addQuestion(QuestionDto question) {
+    Assert.notNull(questions, String.format("Cannot add null question to the list of questions in the subject %s",
+        this.toString()));
+
+    if (questions == null) {
+      questions = new ArrayList<>();
+    }
+    questions.add(question);
   }
 
   public List<QuestionDto> getQuestions() {
