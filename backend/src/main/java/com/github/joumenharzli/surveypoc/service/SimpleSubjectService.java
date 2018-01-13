@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.github.joumenharzli.surveypoc.domain.Question;
-import com.github.joumenharzli.surveypoc.repository.QuestionDao;
+import com.github.joumenharzli.surveypoc.repository.dao.QuestionDao;
 import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 import com.github.joumenharzli.surveypoc.service.mapper.SubjectMapper;
 
@@ -16,12 +16,12 @@ import com.github.joumenharzli.surveypoc.service.mapper.SubjectMapper;
  * @author Joumen HARZLI
  */
 @Service
-public class SubjectServiceImpl implements SubjectService {
+public class SimpleSubjectService implements SubjectService {
 
   private final QuestionDao questionDao;
   private final SubjectMapper subjectMapper;
 
-  public SubjectServiceImpl(QuestionDao questionDao, SubjectMapper subjectMapper) {
+  public SimpleSubjectService(QuestionDao questionDao, SubjectMapper subjectMapper) {
     this.questionDao = questionDao;
     this.subjectMapper = subjectMapper;
   }
@@ -33,7 +33,7 @@ public class SubjectServiceImpl implements SubjectService {
    */
   @Override
   public List<SubjectDto> findAllSubjectsAndQuestions() {
-    List<Question> questions = questionDao.findAllSubjectsAndQuestions();
+    List<Question> questions = questionDao.findAllQuestionsAndSubjects();
 
     if (questions != null) {
       return subjectMapper.questionsToSubjectsDto(questions);

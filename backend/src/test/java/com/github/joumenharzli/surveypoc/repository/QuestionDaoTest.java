@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.github.joumenharzli.surveypoc.domain.Question;
+import com.github.joumenharzli.surveypoc.repository.dao.QuestionDao;
 
 /**
  * QuestionDaoTest
@@ -25,9 +26,9 @@ public class QuestionDaoTest {
 
   @Test
   public void findAllSubjectsAndQuestions() throws Exception {
-    List<Question> subjects = questionDao.findAllSubjectsAndQuestions();
-    Assert.assertNotNull(subjects);
-    Assert.assertEquals(subjects.size(), 3);
+    List<Question> questions = questionDao.findAllQuestionsAndSubjects();
+    Assert.assertNotNull(questions);
+    Assert.assertEquals(questions.size(), 3);
   }
 
 }

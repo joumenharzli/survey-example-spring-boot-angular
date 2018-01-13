@@ -1,4 +1,4 @@
-package com.github.joumenharzli.surveypoc.repository;
+package com.github.joumenharzli.surveypoc.repository.dao;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import com.github.joumenharzli.surveypoc.exception.DaoException;
 public interface QuestionDao {
 
   /**
-   * find all the subjects and their questions
+   * find all questions with their subjects
    *
    * @return a list of the questions with subjects
    * @throws DaoException if there is an sql exception
    */
-  List<Question> findAllSubjectsAndQuestions();
+  List<Question> findAllQuestionsAndSubjects();
 }
