@@ -28,8 +28,7 @@ public interface UserResponseDao {
    * @param user      user who responded
    * @param questions questions that the user may responded
    * @return list of responses
-   * @throws QuestionNotFoundException if at least one question was not found
-   * @throws DaoException              if there is an sql exception
+   * @throws IllegalArgumentException if any given argument is invalid
    */
   List<UserResponse> findResponsesOfUserForQuestions(User user, List<Question> questions);
 }
