@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.github.joumenharzli.surveypoc.domain.Question;
 import com.github.joumenharzli.surveypoc.domain.User;
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
-import com.github.joumenharzli.surveypoc.util.TestTimeWatcher;
 
 /**
  * UserResponseDaoTest
@@ -27,8 +24,6 @@ import com.github.joumenharzli.surveypoc.util.TestTimeWatcher;
 @SpringBootTest
 public class UserResponseDaoTest {
 
-  @Rule
-  public TestRule watcher = new TestTimeWatcher();
   @Autowired
   UserResponseDao userResponseDao;
 
@@ -55,12 +50,24 @@ public class UserResponseDaoTest {
                                 String response1Content, String response2Content) {
     UserResponse userResponse1 = createUserResponse(userId, question1Id, response1Content);
     UserResponse userResponse2 = createUserResponse(userId, question2Id, response2Content);
+
+    Long start = System.currentTimeMillis();
+
     userResponseDao.addUserResponses(Arrays.asList(userResponse1, userResponse2));
+
+    Long end = System.currentTimeMillis();
+    Assert.assertTrue(end - start < 100L);
   }
 
   private List<UserResponse> findResponsesOfUserForQuestions(Long userId, Long question1Id, Long question2Id) {
-    return userResponseDao.findResponsesOfUserForQuestions(createUser(userId),
+    Long start = System.currentTimeMillis();
+
+    List<UserResponse> responses = userResponseDao.findResponsesOfUserForQuestions(createUser(userId),
         Arrays.asList(createQuestion(question1Id), createQuestion(question2Id)));
+
+    Long end = System.currentTimeMillis();
+    Assert.assertTrue(end - start < 100L);
+    return responses;
   }
 
   private UserResponse createUserResponse(Long userId, Long questionId, String responseContent) {
