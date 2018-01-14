@@ -19,8 +19,7 @@ import com.github.joumenharzli.surveypoc.service.dto.UserResponseForQuestionDto;
 public interface UserResponseMapper {
 
   @Mapping(source = "question.id", target = "questionId")
-  UserResponseForQuestionDto mapUserResponseForQuestionToDto(UserResponse entity);
+  UserResponseForQuestionDto userResponseToUserResponseForQuestionDto(UserResponse entity);
 
-  @Mapping(source = "question.id", target = "questionId")
-  List<UserResponseForQuestionDto> mapUserResponsesForQuestionsToDto(List<UserResponse> entity);
+  List<UserResponseForQuestionDto> userResponseListToUserResponseForQuestionDtoList(List<UserResponse> entity);
 }

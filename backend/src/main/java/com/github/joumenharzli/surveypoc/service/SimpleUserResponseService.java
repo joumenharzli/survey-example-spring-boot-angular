@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
@@ -18,9 +19,10 @@ import com.github.joumenharzli.surveypoc.service.mapper.UserResponseMapper;
  *
  * @author Joumen HARZLI
  */
+@Service
 public class SimpleUserResponseService implements UserResponseService {
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(SimpleUserResponseService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleUserResponseService.class);
 
   private final UserResponseDao userResponseDao;
   private final UserMapper userMapper;
@@ -53,9 +55,9 @@ public class SimpleUserResponseService implements UserResponseService {
 
     List<UserResponse> responses = userResponseDao.findResponsesOfUserForQuestions(
         userMapper.toEntityFromId(userId),
-        questionMapper.toEntitiesFromIds(questionsId));
+        questionMapper.questionsIdsListToQuestionList(questionsId));
 
-    return userResponseMapper.mapUserResponsesForQuestionsToDto(responses);
+    return userResponseMapper.userResponseListToUserResponseForQuestionDtoList(responses);
   }
 
 }

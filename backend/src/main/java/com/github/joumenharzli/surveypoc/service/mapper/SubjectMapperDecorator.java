@@ -36,7 +36,7 @@ public abstract class SubjectMapperDecorator implements SubjectMapper {
         .collect(Collectors.groupingBy(question -> delegate.toDto(question.getSubject()),
                                                    LinkedHashMap::new,
                                                    Collectors.mapping(
-                                                       question -> questionMapper.toDto(question), Collectors.toList())))
+                                                       question -> questionMapper.questionToQuestionDto(question), Collectors.toList())))
         .entrySet()
         .stream()
         /* move the questions list in the map to the list in the subject */
