@@ -8,7 +8,7 @@
 [![Build Status](https://travis-ci.org/joumenharzli/survey-example-spring-boot-angular.svg?branch=master)](https://travis-ci.org/joumenharzli/survey-example-spring-boot-angular)
 
 ## Overview
-This is a survey example using Spring Boot, Angular 5, Reactive Froms, Angular Material H2 an
+This is a survey example using Spring Boot, Spring JDBC, MapStruct, Simple Flat Mapper, Angular 5, Reactive Froms, Angular Material and H2
 
 ## Launch
 To launch the backend simply run 
