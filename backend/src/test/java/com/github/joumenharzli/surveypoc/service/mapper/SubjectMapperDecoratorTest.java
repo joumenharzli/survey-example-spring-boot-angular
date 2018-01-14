@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.github.joumenharzli.surveypoc.domain.Question;
 import com.github.joumenharzli.surveypoc.domain.Subject;
 import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
+import com.github.joumenharzli.surveypoc.util.TestTimeWatcher;
 
 /**
  * SubjectMapperDecoratorTest
@@ -23,6 +26,8 @@ import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 @SpringBootTest
 public class SubjectMapperDecoratorTest {
 
+  @Rule
+  public TestRule watcher = new TestTimeWatcher();
   @Autowired
   SubjectMapper subjectMapper;
 
