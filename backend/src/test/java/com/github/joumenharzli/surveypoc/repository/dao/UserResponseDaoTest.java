@@ -51,23 +51,12 @@ public class UserResponseDaoTest {
     UserResponse userResponse1 = createUserResponse(userId, question1Id, response1Content);
     UserResponse userResponse2 = createUserResponse(userId, question2Id, response2Content);
 
-    Long start = System.currentTimeMillis();
-
     userResponseDao.addUserResponses(Arrays.asList(userResponse1, userResponse2));
-
-    Long end = System.currentTimeMillis();
-    Assert.assertTrue(end - start < 100L);
   }
 
   private List<UserResponse> findResponsesOfUserForQuestions(Long userId, Long question1Id, Long question2Id) {
-    Long start = System.currentTimeMillis();
-
-    List<UserResponse> responses = userResponseDao.findResponsesOfUserForQuestions(createUser(userId),
+    return userResponseDao.findResponsesOfUserForQuestions(createUser(userId),
         Arrays.asList(createQuestion(question1Id), createQuestion(question2Id)));
-
-    Long end = System.currentTimeMillis();
-    Assert.assertTrue(end - start < 100L);
-    return responses;
   }
 
   private UserResponse createUserResponse(Long userId, Long questionId, String responseContent) {

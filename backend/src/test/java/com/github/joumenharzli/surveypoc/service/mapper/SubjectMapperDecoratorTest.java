@@ -32,11 +32,7 @@ public class SubjectMapperDecoratorTest {
     Question q2 = new Question().id(2L).label("question2").subject(new Subject().id(1L));
     Question q3 = new Question().id(3L).label("question3").subject(new Subject().id(2L));
 
-    Long start = System.currentTimeMillis();
     List<SubjectDto> subjects = subjectMapper.questionsToSubjectsDto(Arrays.asList(q1, q2, q3));
-
-    Long end = System.currentTimeMillis();
-    Assert.assertTrue(end - start < 100L);
 
     Assert.assertNotNull(subjects);
     Assert.assertEquals(subjects.size(), 2);
