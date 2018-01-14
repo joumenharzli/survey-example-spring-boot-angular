@@ -21,3 +21,12 @@ And to launch the frontend run
 $ ./frontend/yarn && yarn start
 ``` 
 
+## Api Documentation 
+You can access Swagger api documentation at 
+```
+http://${host}:${port}/swagger-ui.html
+``` 
+example
+```
+http://localhost:8080/swagger-ui.html
+``` 
