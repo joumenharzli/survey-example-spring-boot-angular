@@ -18,7 +18,6 @@ import org.springframework.util.Assert;
 import com.github.joumenharzli.surveypoc.domain.Question;
 import com.github.joumenharzli.surveypoc.domain.User;
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
-import com.github.joumenharzli.surveypoc.exception.DaoException;
 
 /**
  * JDBC implementation for {@link UserResponseDao}

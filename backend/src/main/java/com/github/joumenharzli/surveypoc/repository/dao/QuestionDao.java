@@ -3,7 +3,6 @@ package com.github.joumenharzli.surveypoc.repository.dao;
 import java.util.List;
 
 import com.github.joumenharzli.surveypoc.domain.Question;
-import com.github.joumenharzli.surveypoc.exception.DaoException;
 
 /**
  * Question dao
