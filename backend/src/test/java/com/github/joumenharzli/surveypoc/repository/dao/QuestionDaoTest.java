@@ -27,7 +27,7 @@ public class QuestionDaoTest {
   public void findAllSubjectsAndQuestions() throws Exception {
     List<Question> questions = questionDao.findAllQuestionsAndSubjects();
     Assert.assertNotNull(questions);
-    Assert.assertEquals(questions.size(), 3);
+    Assert.assertEquals(questions.size(), 4);
   }
 
 }

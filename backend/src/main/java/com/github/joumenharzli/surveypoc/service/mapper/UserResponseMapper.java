@@ -12,7 +12,7 @@ import com.github.joumenharzli.surveypoc.domain.UserResponse;
 import com.github.joumenharzli.surveypoc.service.dto.UserResponseForQuestionDto;
 
 /**
- * UserResponseMapper
+ * Mapper for {@link UserResponse} and {@link UserResponseForQuestionDto}
  *
  * @author Joumen HARZLI
  */

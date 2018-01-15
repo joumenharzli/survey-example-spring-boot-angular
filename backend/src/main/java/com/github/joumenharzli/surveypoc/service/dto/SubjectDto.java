@@ -3,10 +3,13 @@ package com.github.joumenharzli.surveypoc.service.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.util.Assert;
 
 /**
- * SubjectDto
+ * Subject Dto
  *
  * @author Joumen HARZLI
  */
@@ -61,26 +64,31 @@ public class SubjectDto {
     if (this == o) {
       return true;
     }
+
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
     SubjectDto that = (SubjectDto) o;
 
-    return id != null ? id.equals(that.id) : that.id == null;
+    return new EqualsBuilder()
+        .append(id, that.id)
+        .isEquals();
   }
 
   @Override
   public int hashCode() {
-    return id != null ? id.hashCode() : 0;
+    return new HashCodeBuilder(17, 37)
+        .append(id)
+        .toHashCode();
   }
 
   @Override
   public String toString() {
-    return "SubjectDto{" +
-        "id=" + id +
-        ", label='" + label + '\'' +
-        ", questions=" + questions +
-        '}';
+    return new ToStringBuilder(this)
+        .append("id", id)
+        .append("label", label)
+        .append("questions", questions)
+        .toString();
   }
 }

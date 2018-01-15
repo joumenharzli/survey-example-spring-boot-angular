@@ -11,7 +11,7 @@ import com.github.joumenharzli.surveypoc.domain.Subject;
 import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 
 /**
- * SubjectMapper
+ * Mapper for {@link Subject} and {@link SubjectDto}
  *
  * @author Joumen HARZLI
  */
@@ -23,4 +23,5 @@ public interface SubjectMapper {
   List<SubjectDto> questionsToSubjectsDto(List<Question> questions);
 
   SubjectDto toDto(Subject subject);
+
 }

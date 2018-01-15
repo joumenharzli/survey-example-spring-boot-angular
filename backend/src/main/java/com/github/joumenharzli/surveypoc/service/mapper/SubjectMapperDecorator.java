@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.Assert;
 
 import com.github.joumenharzli.surveypoc.domain.Question;
+import com.github.joumenharzli.surveypoc.domain.Subject;
 import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 
 /**
- * SubjectMapperDecorator
+ * A decorator for the mapper for {@link Subject} and {@link SubjectDto}
+ * for custom methods
  *
  * @author Joumen HARZLI
  */

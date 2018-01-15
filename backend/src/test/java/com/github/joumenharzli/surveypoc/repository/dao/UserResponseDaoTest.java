@@ -31,15 +31,15 @@ public class UserResponseDaoTest {
   public void addUserResponsesTest() throws Exception {
 
     Long userId = 1L;
-    Long question1Id = 1L;
-    Long question2Id = 2L;
+    Long question1Id = 3L;
+    Long question2Id = 4L;
     String response1Content = RandomStringUtils.randomAlphabetic(5);
     String response2Content = RandomStringUtils.randomAlphabetic(5);
 
     addUserResponses(userId, question1Id, question2Id, response1Content, response2Content);
 
     List<UserResponse> userResponses = findResponsesOfUserForQuestions(userId, question1Id, question2Id);
-    Assert.assertEquals(userResponses.size(), 4);
+    Assert.assertEquals(userResponses.size(), 2);
     Assert.assertNotNull(userResponses.get(0));
     Assert.assertNotNull(userResponses.get(1));
   }

@@ -16,7 +16,7 @@ import com.github.joumenharzli.surveypoc.service.mapper.UserMapper;
 import com.github.joumenharzli.surveypoc.service.mapper.UserResponseMapper;
 
 /**
- * A simple implementation of the {@link UserResponseService}
+ * A simple implementation for {@link UserResponseService}
  *
  * @author Joumen HARZLI
  */

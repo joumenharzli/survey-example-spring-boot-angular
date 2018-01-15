@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.github.joumenharzli.surveypoc.domain.Question;
 
 /**
- * Question dao jdbc implementation
+ * JDBC implementation for {@link QuestionDao}
  *
  * @author Joumen HARZLI
  */

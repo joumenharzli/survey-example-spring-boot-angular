@@ -10,17 +10,19 @@ import com.github.joumenharzli.surveypoc.domain.Question;
 import com.github.joumenharzli.surveypoc.service.dto.QuestionDto;
 
 /**
- * QuestionMapper
+ * Mapper for {@link Question} and {@link QuestionDto}
  *
  * @author Joumen HARZLI
  */
 @Mapper(componentModel = "spring")
 @Service
 public interface QuestionMapper {
+
   QuestionDto questionToQuestionDto(Question question);
 
   @Mapping(source = "questionId", target = "id")
   Question questionIdToQuestion(Long questionId);
 
   List<Question> questionsIdsListToQuestionList(List<Long> questionsIds);
+
 }

@@ -13,7 +13,7 @@ import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 import com.github.joumenharzli.surveypoc.service.mapper.SubjectMapper;
 
 /**
- * Subject service default implementation
+ * A simple implementation for {@link SubjectService}
  *
  * @author Joumen HARZLI
  */

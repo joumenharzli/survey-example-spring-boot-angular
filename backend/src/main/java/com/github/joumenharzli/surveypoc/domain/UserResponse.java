@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * UserResponse entity
+ * User Response entity
  *
  * @author Joumen HARZLI
  */
