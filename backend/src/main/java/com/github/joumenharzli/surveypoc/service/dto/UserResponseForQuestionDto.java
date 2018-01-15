@@ -3,6 +3,7 @@ package com.github.joumenharzli.surveypoc.service.dto;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * User Response For Question Dto
@@ -11,7 +12,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class UserResponseForQuestionDto {
 
+  @NotBlank
   private Long questionId;
+
+  @NotBlank
   private String content;
 
   public Long getQuestionId() {

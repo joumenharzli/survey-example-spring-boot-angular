@@ -110,8 +110,8 @@ public class JdbcUserResponseDao implements UserResponseDao {
         Long questionId = userResponse.getQuestionId();
         Long userId = userResponse.getUserId();
 
-        Assert.notNull(userResponse.getQuestionId(), "Question id in the user response entity cannot be null");
-        Assert.notNull(userResponse.getUserId(), "User id in the user response entity cannot be null");
+        Assert.notNull(questionId, "Question id in the user response entity cannot be null");
+        Assert.notNull(userId, "User id in the user response entity cannot be null");
 
         ps.setString(1, userResponse.getContent());
         ps.setLong(2, userId);
