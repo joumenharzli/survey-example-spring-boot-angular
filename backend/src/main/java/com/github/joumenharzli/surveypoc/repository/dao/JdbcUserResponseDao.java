@@ -30,9 +30,9 @@ public class JdbcUserResponseDao implements UserResponseDao {
   private static final String INSERT_USER_RESPONSE = "INSERT INTO user_responses (content,user_id,question_id) " +
       "VALUES (?, ?, ?)";
 
-  private static final String SELECT_USER_RESPONSES_FOR_QUESTIONS = "SELECT ur.id AS id, ur.content AS content, " +
+  private static final String SELECT_USER_RESPONSES_FOR_QUESTIONS = "SELECT ur.content AS content, " +
       "ur.question_id AS question_id, ur.user_id AS user_id FROM user_responses AS ur WHERE ur.user_id = :user_id " +
-      "AND ur.question_id IN (:question_ids) ORDER BY ur.id";
+      "AND ur.question_id IN (:question_ids) ORDER BY ur.question_id,ur.user_id";
 
   private final RowMapper<UserResponse> mapper = JdbcTemplateMapperFactory
       .newInstance()

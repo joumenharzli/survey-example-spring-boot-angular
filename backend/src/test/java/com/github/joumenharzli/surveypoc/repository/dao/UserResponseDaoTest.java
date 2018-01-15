@@ -41,9 +41,7 @@ public class UserResponseDaoTest {
     List<UserResponse> userResponses = findResponsesOfUserForQuestions(userId, question1Id, question2Id);
     Assert.assertEquals(userResponses.size(), 4);
     Assert.assertNotNull(userResponses.get(0));
-    Assert.assertNotNull(userResponses.get(0).getId());
     Assert.assertNotNull(userResponses.get(1));
-    Assert.assertNotNull(userResponses.get(1).getId());
   }
 
   private void addUserResponses(Long userId, Long question1Id, Long question2Id,

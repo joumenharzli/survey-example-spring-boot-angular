@@ -23,11 +23,10 @@ CREATE TABLE users (
 
 DROP TABLE IF EXISTS user_responses;
 CREATE TABLE user_responses (
-  id          INT8         NOT NULL AUTO_INCREMENT,
   content     VARCHAR(100) NOT NULL,
   question_id INT8         NOT NULL,
   user_id     INT8         NOT NULL,
-  CONSTRAINT pk_user_responses PRIMARY KEY (id),
+  CONSTRAINT pk_user_responses PRIMARY KEY (question_id, user_id),
   CONSTRAINT fk_questions_user_responses FOREIGN KEY (question_id) REFERENCES questions (id),
   CONSTRAINT fk_users_user_responses FOREIGN KEY (user_id) REFERENCES users (id)
 );

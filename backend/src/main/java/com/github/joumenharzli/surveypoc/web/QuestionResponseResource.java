@@ -15,7 +15,7 @@ import com.github.joumenharzli.surveypoc.service.dto.UserResponseForQuestionDto;
 import static com.github.joumenharzli.surveypoc.web.util.RestUtils.commaDelimitedListToLongList;
 
 /**
- * Rest Resource for the entity {@link UserResponse} and {@link Question}
+ * Rest Resource for the entities {@link UserResponse} and {@link Question}
  *
  * @author Joumen HARZLI
  */

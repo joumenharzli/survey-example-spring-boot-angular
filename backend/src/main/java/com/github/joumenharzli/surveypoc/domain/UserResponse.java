@@ -1,5 +1,9 @@
 package com.github.joumenharzli.surveypoc.domain;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * UserResponse entity
  *
@@ -7,15 +11,9 @@ package com.github.joumenharzli.surveypoc.domain;
  */
 public class UserResponse {
 
-  private Long id;
   private String content;
   private Question question;
   private User user;
-
-  public UserResponse id(Long id) {
-    this.id = id;
-    return this;
-  }
 
   public UserResponse content(String content) {
     this.content = content;
@@ -30,14 +28,6 @@ public class UserResponse {
   public UserResponse question(Question question) {
     this.question = question;
     return this;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public String getContent() {
@@ -83,28 +73,33 @@ public class UserResponse {
     if (this == o) {
       return true;
     }
+
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
-    UserResponse userResponse = (UserResponse) o;
+    UserResponse that = (UserResponse) o;
 
-    return id != null ? id.equals(userResponse.id) : userResponse.id == null;
+    return new EqualsBuilder()
+        .append(question, that.question)
+        .append(user, that.user)
+        .isEquals();
   }
 
   @Override
   public int hashCode() {
-    return id != null ? id.hashCode() : 0;
+    return new HashCodeBuilder(17, 37)
+        .append(question)
+        .append(user)
+        .toHashCode();
   }
 
   @Override
   public String toString() {
-    return "UserResponse{" +
-        "id=" + id +
-        ", content='" + content + '\'' +
-        ", question='" + question + '\'' +
-        ", user='" + user + '\'' +
-        '}';
+    return new ToStringBuilder(this)
+        .append("content", content)
+        .append("question", question)
+        .append("user", user)
+        .toString();
   }
-
 }
