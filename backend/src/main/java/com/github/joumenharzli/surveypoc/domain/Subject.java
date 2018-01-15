@@ -1,11 +1,16 @@
 package com.github.joumenharzli.surveypoc.domain;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Subject entity
  *
  * @author Joumen HARZLI
  */
 public class Subject {
+
   private Long id;
   private String label;
 
@@ -40,25 +45,30 @@ public class Subject {
     if (this == o) {
       return true;
     }
+
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
     Subject subject = (Subject) o;
 
-    return id != null ? id.equals(subject.id) : subject.id == null;
+    return new EqualsBuilder()
+        .append(id, subject.id)
+        .isEquals();
   }
 
   @Override
   public int hashCode() {
-    return id != null ? id.hashCode() : 0;
+    return new HashCodeBuilder(17, 37)
+        .append(id)
+        .toHashCode();
   }
 
   @Override
   public String toString() {
-    return "Subject{" +
-        "id=" + id +
-        ", label='" + label + '\'' +
-        '}';
+    return new ToStringBuilder(this)
+        .append("id", id)
+        .append("label", label)
+        .toString();
   }
 }

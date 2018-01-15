@@ -1,5 +1,9 @@
 package com.github.joumenharzli.surveypoc.domain;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * User entity
  *
@@ -41,26 +45,30 @@ public class User {
     if (this == o) {
       return true;
     }
+
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
     User user = (User) o;
 
-    return id != null ? id.equals(user.id) : user.id == null;
+    return new EqualsBuilder()
+        .append(id, user.id)
+        .isEquals();
   }
 
   @Override
   public int hashCode() {
-    return id != null ? id.hashCode() : 0;
+    return new HashCodeBuilder(17, 37)
+        .append(id)
+        .toHashCode();
   }
 
   @Override
   public String toString() {
-    return "User{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        '}';
+    return new ToStringBuilder(this)
+        .append("id", id)
+        .append("name", name)
+        .toString();
   }
-
 }
