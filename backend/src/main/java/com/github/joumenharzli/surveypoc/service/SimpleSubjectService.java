@@ -3,6 +3,8 @@ package com.github.joumenharzli.surveypoc.service;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.github.joumenharzli.surveypoc.domain.Question;
@@ -17,6 +19,8 @@ import com.github.joumenharzli.surveypoc.service.mapper.SubjectMapper;
  */
 @Service
 public class SimpleSubjectService implements SubjectService {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSubjectService.class);
 
   private final QuestionDao questionDao;
   private final SubjectMapper subjectMapper;
@@ -33,6 +37,8 @@ public class SimpleSubjectService implements SubjectService {
    */
   @Override
   public List<SubjectDto> findAllSubjectsAndQuestions() {
+    LOGGER.debug("Request to get all the subjects and the questions");
+
     List<Question> questions = questionDao.findAllQuestionsAndSubjects();
 
     if (questions != null) {

@@ -2,6 +2,8 @@ package com.github.joumenharzli.surveypoc.web;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,8 @@ import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 @RequestMapping("/api/v1/subjects")
 public class SubjectResource {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(SubjectResource.class);
+
   private final SubjectService subjectService;
 
   public SubjectResource(SubjectService subjectService) {
@@ -31,6 +35,8 @@ public class SubjectResource {
    */
   @GetMapping
   public List<SubjectDto> findAllSubjectsAndQuestions() {
+    LOGGER.debug("REST request to get all the subjects and the questions");
+
     return subjectService.findAllSubjectsAndQuestions();
   }
 
