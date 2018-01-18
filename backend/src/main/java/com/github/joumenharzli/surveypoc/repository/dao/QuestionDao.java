@@ -18,4 +18,13 @@ public interface QuestionDao {
    * @throws DaoException if there is an sql exception
    */
   List<Question> findAllQuestionsAndSubjects();
+
+  /**
+   * Returns the list of ids of the not found questions using ids
+   *
+   * @param questionsId ids of the questions to check
+   * @return a list of the ids of the not found questions
+   * @throws DaoException if there is an sql exception
+   */
+  List<Long> findNonSavedQuestionsByQuestionsIds(List<Long> questionsId);
 }

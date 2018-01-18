@@ -8,6 +8,8 @@ package com.github.joumenharzli.surveypoc.web.error;
 public final class RestErrorConstants {
   public static final String ERR_INTERNAL_SERVER_ERROR = "01";
   public static final String ERR_VALIDATION_ERROR = "02";
+  public static final String ERR_QUESTION_NOT_FOUND_ERROR = "03";
+  public static final String ERR_USER_NOT_FOUND_ERROR = "04";
 
   private RestErrorConstants() {
   }

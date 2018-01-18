@@ -20,6 +20,13 @@ public class RestErrorsDTO implements Serializable {
 
   /**
    * Constructor for the rest errors entity
+   */
+  public RestErrorsDTO() {
+    errors = new ArrayList<>();
+  }
+
+  /**
+   * Constructor for the rest errors entity
    *
    * @param error first error to add to the list of the errors use {@code addError}
    *              to add other errors

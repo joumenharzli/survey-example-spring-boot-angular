@@ -34,13 +34,13 @@ public class JdbcUserResponseDao implements UserResponseDao {
       "ur.question_id AS question_id, ur.user_id AS user_id FROM user_responses AS ur WHERE ur.user_id = :user_id " +
       "AND ur.question_id IN (:question_ids) ORDER BY ur.question_id,ur.user_id";
 
+  private final JdbcTemplate jdbcTemplate;
+  private final NamedParameterJdbcTemplate parameterJdbcTemplate;
+
   private final RowMapper<UserResponse> mapper = JdbcTemplateMapperFactory
       .newInstance()
       .addKeys("id", "question_id", "user_id")
       .newRowMapper(UserResponse.class);
-
-  private final JdbcTemplate jdbcTemplate;
-  private final NamedParameterJdbcTemplate parameterJdbcTemplate;
 
   public JdbcUserResponseDao(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate parameterJdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
