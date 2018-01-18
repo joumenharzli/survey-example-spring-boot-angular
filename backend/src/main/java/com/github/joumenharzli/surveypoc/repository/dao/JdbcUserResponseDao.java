@@ -3,8 +3,6 @@ package com.github.joumenharzli.surveypoc.repository.dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.simpleflatmapper.jdbc.spring.JdbcTemplateMapperFactory;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -15,8 +13,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import com.github.joumenharzli.surveypoc.domain.Question;
-import com.github.joumenharzli.surveypoc.domain.User;
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
 
 /**
@@ -70,17 +66,18 @@ public class JdbcUserResponseDao implements UserResponseDao {
   /**
    * Find the responses for the provided questions and user
    *
-   * @param user      user who responded
-   * @param questions questions that the user may responded
+   * @param userId      user who responded
+   * @param questionsIds questions that the user may responded
    * @return list of responses
    * @throws DaoException             if there is an sql exception
    * @throws IllegalArgumentException if any given argument is invalid
    */
   @Override
-  public List<UserResponse> findResponsesOfUserForQuestions(User user, List<Question> questions) {
+  public List<UserResponse> findResponsesOfUserByUserIdAndQuestionIds(Long userId, List<Long> questionsIds) {
 
-    Long userId = getUserId(user);
-    Set<Long> questionsIds = getQuestionsIds(questions);
+    Assert.notNull(userId, "User id cannot be null");
+    Assert.notEmpty(questionsIds, "Questions ids cannot be null or empty");
+    questionsIds.forEach(questionId -> Assert.notNull(questionId, "Id of the question cannot be null"));
 
     MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue("question_ids", questionsIds);
@@ -123,29 +120,6 @@ public class JdbcUserResponseDao implements UserResponseDao {
         return userResponses.size();
       }
     };
-  }
-
-  private Long getUserId(User user) {
-    Assert.notNull(user, "User cannot be null");
-    Long userId = user.getId();
-
-    Assert.notNull(userId, "User id cannot be null");
-    return userId;
-  }
-
-  private Set<Long> getQuestionsIds(List<Question> questions) {
-    Assert.notEmpty(questions, "questions list cannot be null or empty");
-
-    return questions.stream()
-        .map(question -> {
-
-          Assert.notNull(question, "question cannot be null");
-          Long questionId = question.getId();
-
-          Assert.notNull(questionId, "question id cannot be null");
-          return questionId;
-
-        }).collect(Collectors.toSet());
   }
 
 }

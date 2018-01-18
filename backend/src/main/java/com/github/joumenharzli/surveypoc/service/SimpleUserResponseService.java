@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
-import com.github.joumenharzli.surveypoc.domain.User;
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
 import com.github.joumenharzli.surveypoc.exception.QuestionNotFoundException;
 import com.github.joumenharzli.surveypoc.exception.UserNotFoundException;
@@ -57,7 +56,7 @@ public class SimpleUserResponseService implements UserResponseService {
    * @return list of responses of the user
    * @throws UserNotFoundException     if no user was found
    * @throws QuestionNotFoundException if no question was found
-   * @throws IllegalArgumentException if any given argument is invalid
+   * @throws IllegalArgumentException  if any given argument is invalid
    */
   @Override
   public List<UserResponseForQuestionDto> findResponsesOfUserForQuestions(Long userId, List<Long> questionsIds) {
@@ -69,7 +68,7 @@ public class SimpleUserResponseService implements UserResponseService {
 
     verifyUserAndQuestionsExists(userId, questionsIds);
 
-    return findResponsesOfUserForQuestions(userMapper.toEntityFromId(userId), questionsIds);
+    return findResponsesOfUserByUserIdAndQuestionIds(userId, questionsIds);
   }
 
   /**
@@ -80,7 +79,7 @@ public class SimpleUserResponseService implements UserResponseService {
    * @return List of the saved responses of the user
    * @throws UserNotFoundException     if no user was found
    * @throws QuestionNotFoundException if no question was found
-   * @throws IllegalArgumentException if any given argument is invalid
+   * @throws IllegalArgumentException  if any given argument is invalid
    */
   @Override
   public List<UserResponseForQuestionDto> saveResponsesOfUserForQuestions(Long userId,
@@ -94,26 +93,23 @@ public class SimpleUserResponseService implements UserResponseService {
 
     verifyUserAndQuestionsExists(userId, questionsIds);
 
-    User user = userMapper.toEntityFromId(userId);
-
     userResponseDao.addUserResponses(
-        userResponseMapper.userResponsesForQuestionsDtoToUserResponsesList(userResponsesForQuestions, user));
+        userResponseMapper.userResponsesForQuestionsDtoToUserResponsesList(userResponsesForQuestions,
+            this.userMapper.toEntityFromId(userId)));
 
-    return findResponsesOfUserForQuestions(user, questionsIds);
+    return findResponsesOfUserByUserIdAndQuestionIds(userId, questionsIds);
   }
 
   /**
    * Retrieve the response of the provided user for the questions from the database and map results to a list
    * of DTO
    *
-   * @param user         user who responded to the question
+   * @param userId       user who responded to the question
    * @param questionsIds ids of the questions
    * @return list of dto of the response of the user
    */
-  private List<UserResponseForQuestionDto> findResponsesOfUserForQuestions(User user, List<Long> questionsIds) {
-    List<UserResponse> responses = userResponseDao.findResponsesOfUserForQuestions(user,
-        questionMapper.questionsIdsListToQuestionList(questionsIds));
-
+  private List<UserResponseForQuestionDto> findResponsesOfUserByUserIdAndQuestionIds(Long userId, List<Long> questionsIds) {
+    List<UserResponse> responses = userResponseDao.findResponsesOfUserByUserIdAndQuestionIds(userId, questionsIds);
     return userResponseMapper.userResponseListToUserResponseForQuestionDtoList(responses);
   }
 

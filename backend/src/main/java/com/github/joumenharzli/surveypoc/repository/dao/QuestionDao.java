@@ -22,9 +22,10 @@ public interface QuestionDao {
   /**
    * Returns the list of ids of the not found questions using ids
    *
-   * @param questionsId ids of the questions to check
+   * @param questionsIds ids of the questions to check
    * @return a list of the ids of the not found questions
-   * @throws DaoException if there is an sql exception
+   * @throws DaoException             if there is an sql exception
+   * @throws IllegalArgumentException if any given argument is invalid
    */
-  List<Long> findNonSavedQuestionsByQuestionsIds(List<Long> questionsId);
+  List<Long> findNonSavedQuestionsByQuestionsIds(List<Long> questionsIds);
 }

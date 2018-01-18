@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 import com.github.joumenharzli.surveypoc.domain.Question;
 
@@ -59,24 +60,28 @@ public class JdbcQuestionDao implements QuestionDao {
   /**
    * Returns the list of ids of the not found questions using ids
    *
-   * @param questionsId ids of the questions to check
+   * @param questionsIds ids of the questions to check
    * @return a list of the ids of the not found questions
-   * @throws DaoException if there is an sql exception
+   * @throws DaoException             if there is an sql exception
+   * @throws IllegalArgumentException if any given argument is invalid
    */
   @Override
-  public List<Long> findNonSavedQuestionsByQuestionsIds(List<Long> questionsId) {
+  public List<Long> findNonSavedQuestionsByQuestionsIds(List<Long> questionsIds) {
+
+    Assert.notEmpty(questionsIds, "Ids of the questions cannot be null or empty");
+    questionsIds.forEach(questionId -> Assert.notNull(questionId, "Id of the question cannot be null"));
 
     MapSqlParameterSource parameters = new MapSqlParameterSource();
-    parameters.addValue("questions_ids", questionsId);
+    parameters.addValue("questions_ids", questionsIds);
 
     try {
       List<Long> foundQuestionsId = parameterJdbcTemplate.query(FIND_QUESTIONS_BY_IDS, parameters,
           (rs, rowNum) -> rs.getLong(1));
 
       //@formatter:off
-      return questionsId.stream()
-                        .filter(id -> !foundQuestionsId.contains(id))
-                        .collect(Collectors.toList());
+      return questionsIds.stream()
+                         .filter(id -> !foundQuestionsId.contains(id))
+                         .collect(Collectors.toList());
       //@formatter:on
     } catch (Exception exception) {
       throw new DaoException("Unable to find questions by ids", exception);

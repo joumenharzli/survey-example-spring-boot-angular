@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 /**
  * JDBC implementation for {@link UserDao}
@@ -26,24 +27,28 @@ public class JdbcUserDao implements UserDao {
   /**
    * Returns the list of ids of the not found users using ids
    *
-   * @param usersId ids of the users to check
+   * @param usersIds ids of the users to check
    * @return a list of the ids of the not found users
-   * @throws DaoException if there is an sql exception
+   * @throws DaoException             if there is an sql exception
+   * @throws IllegalArgumentException if any given argument is invalid
    */
   @Override
-  public List<Long> findNonSavedUsersByUsersIds(List<Long> usersId) {
+  public List<Long> findNonSavedUsersByUsersIds(List<Long> usersIds) {
+
+    Assert.notEmpty(usersIds, "Ids of the users cannot be null or empty");
+    usersIds.forEach(userId -> Assert.notNull(userId, "Id of the user cannot be null"));
 
     MapSqlParameterSource parameters = new MapSqlParameterSource();
-    parameters.addValue("users_ids", usersId);
+    parameters.addValue("users_ids", usersIds);
 
     try {
       List<Long> foundUsersId = parameterJdbcTemplate.query(FIND_USERS_BY_IDS, parameters,
           (rs, rowNum) -> rs.getLong(1));
 
       //@formatter:off
-      return usersId.stream()
-                    .filter(id -> !foundUsersId.contains(id))
-                    .collect(Collectors.toList());
+      return usersIds.stream()
+                     .filter(id -> !foundUsersId.contains(id))
+                     .collect(Collectors.toList());
       //@formatter:on
 
     } catch (Exception exception) {

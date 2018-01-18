@@ -2,8 +2,6 @@ package com.github.joumenharzli.surveypoc.repository.dao;
 
 import java.util.List;
 
-import com.github.joumenharzli.surveypoc.domain.Question;
-import com.github.joumenharzli.surveypoc.domain.User;
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
 
 /**
@@ -25,10 +23,11 @@ public interface UserResponseDao {
   /**
    * Find the responses for the provided questions and user
    *
-   * @param user      user who responded
-   * @param questions questions that the user may responded
+   * @param userId       user who responded
+   * @param questionsIds questions that the user may responded
    * @return list of responses
+   * @throws DaoException             if there is an sql exception
    * @throws IllegalArgumentException if any given argument is invalid
    */
-  List<UserResponse> findResponsesOfUserForQuestions(User user, List<Question> questions);
+  List<UserResponse> findResponsesOfUserByUserIdAndQuestionIds(Long userId, List<Long> questionsIds);
 }

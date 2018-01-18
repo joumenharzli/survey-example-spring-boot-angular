@@ -53,8 +53,8 @@ public class UserResponseDaoTest {
   }
 
   private List<UserResponse> findResponsesOfUserForQuestions(Long userId, Long question1Id, Long question2Id) {
-    return userResponseDao.findResponsesOfUserForQuestions(createUser(userId),
-        Arrays.asList(createQuestion(question1Id), createQuestion(question2Id)));
+    return userResponseDao.findResponsesOfUserByUserIdAndQuestionIds(userId,
+        Arrays.asList(question1Id, question2Id));
   }
 
   private UserResponse createUserResponse(Long userId, Long questionId, String responseContent) {
