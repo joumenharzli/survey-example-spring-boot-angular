@@ -14,14 +14,14 @@ import org.springframework.util.Assert;
  *
  * @author Joumen HARZLI
  */
-public class RestErrorsDTO implements Serializable {
+public class RestErrorsDto implements Serializable {
 
-  private List<RestErrorDTO> errors;
+  private List<RestErrorDto> errors;
 
   /**
    * Constructor for the rest errors entity
    */
-  public RestErrorsDTO() {
+  public RestErrorsDto() {
     errors = new ArrayList<>();
   }
 
@@ -31,7 +31,7 @@ public class RestErrorsDTO implements Serializable {
    * @param error first error to add to the list of the errors use {@code addError}
    *              to add other errors
    */
-  public RestErrorsDTO(RestErrorDTO error) {
+  public RestErrorsDto(RestErrorDto error) {
     this.addError(error);
   }
 
@@ -40,7 +40,7 @@ public class RestErrorsDTO implements Serializable {
    *
    * @param error error to add to the list
    */
-  public void addError(RestErrorDTO error) {
+  public void addError(RestErrorDto error) {
     Assert.notNull(error, "Cannot add a null error to the list of rest errors");
 
     if (errors == null) {
@@ -55,7 +55,7 @@ public class RestErrorsDTO implements Serializable {
    *
    * @return list of errors
    */
-  public List<RestErrorDTO> getErrors() {
+  public List<RestErrorDto> getErrors() {
     return errors;
   }
 
@@ -69,7 +69,7 @@ public class RestErrorsDTO implements Serializable {
       return false;
     }
 
-    RestErrorsDTO that = (RestErrorsDTO) o;
+    RestErrorsDto that = (RestErrorsDto) o;
 
     return new EqualsBuilder()
         .append(errors, that.errors)

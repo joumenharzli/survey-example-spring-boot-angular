@@ -11,17 +11,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Joumen HARZLI
  */
-public class RestErrorDTO implements Serializable {
+public class RestErrorDto implements Serializable {
   private String code;
   private String message;
   private Object meta;
 
-  public RestErrorDTO(String code, String message) {
+  public RestErrorDto(String code, String message) {
     this.code = code;
     this.message = message;
   }
 
-  public RestErrorDTO(String code, String message, Object meta) {
+  public RestErrorDto(String code, String message, Object meta) {
     this(code, message);
     this.meta = meta;
   }
@@ -52,7 +52,7 @@ public class RestErrorDTO implements Serializable {
       return false;
     }
 
-    RestErrorDTO that = (RestErrorDTO) o;
+    RestErrorDto that = (RestErrorDto) o;
 
     return new EqualsBuilder()
         .append(code, that.code)

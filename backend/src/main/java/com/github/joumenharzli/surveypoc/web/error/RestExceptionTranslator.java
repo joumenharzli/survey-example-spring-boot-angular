@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,7 +19,7 @@ import com.github.joumenharzli.surveypoc.exception.QuestionNotFoundException;
 import com.github.joumenharzli.surveypoc.exception.UserNotFoundException;
 
 /**
- * Translate exceptions to {@link RestErrorsDTO}
+ * Translate exceptions to {@link RestErrorsDto}
  *
  * @author Joumen HARZLI
  */
@@ -25,6 +27,12 @@ import com.github.joumenharzli.surveypoc.exception.UserNotFoundException;
 public class RestExceptionTranslator {
 
   private final static Logger LOGGER = LoggerFactory.getLogger(RestExceptionTranslator.class);
+
+  private final MessageSource messageSource;
+
+  public RestExceptionTranslator(MessageSource messageSource) {
+    this.messageSource = messageSource;
+  }
 
   /**
    * Handle validation errors
@@ -34,16 +42,22 @@ public class RestExceptionTranslator {
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
   @ResponseBody
-  public RestErrorsDTO handleValidationExceptions(MethodArgumentNotValidException exception) {
+  public RestErrorsDto handleValidationExceptions(MethodArgumentNotValidException exception) {
 
-    LOGGER.error("Method Argument Not Valid Exception", exception);
+    LOGGER.error("Translating method arguments not valid", exception);
 
     BindingResult result = exception.getBindingResult();
     List<FieldError> fieldErrors = result.getFieldErrors();
 
-    return new RestErrorsDTO(
-        new RestErrorDTO(RestErrorConstants.ERR_VALIDATION_ERROR,
-            "Validation Error", fieldErrors));
+    RestFieldsErrorsDto restFieldsErrors = new RestFieldsErrorsDto();
+
+    fieldErrors.forEach(fieldError ->
+        restFieldsErrors.addError(new RestFieldErrorDto(fieldError.getField(), fieldError.getCode(),
+            getLocalizedMessageFromFieldError(fieldError))));
+
+    return new RestErrorsDto(
+        new RestErrorDto(RestErrorConstants.ERR_VALIDATION_ERROR,
+            "Validation Error", restFieldsErrors));
 
   }
 
@@ -55,15 +69,15 @@ public class RestExceptionTranslator {
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   @ExceptionHandler(value = QuestionNotFoundException.class)
   @ResponseBody
-  public RestErrorsDTO handleQuestionNotFound(QuestionNotFoundException exception) {
-    LOGGER.error("Question not found", exception);
+  public RestErrorsDto handleQuestionNotFound(QuestionNotFoundException exception) {
+    LOGGER.error("Translating question not found", exception);
 
     String errorMessage = "The question with id %s was not found";
 
-    RestErrorsDTO restErrors = new RestErrorsDTO();
+    RestErrorsDto restErrors = new RestErrorsDto();
 
     exception.getNotFoundQuestionsIds().forEach(id ->
-        restErrors.addError(new RestErrorDTO(RestErrorConstants.ERR_QUESTION_NOT_FOUND_ERROR,
+        restErrors.addError(new RestErrorDto(RestErrorConstants.ERR_QUESTION_NOT_FOUND_ERROR,
             String.format(errorMessage, id)))
     );
 
@@ -78,15 +92,15 @@ public class RestExceptionTranslator {
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   @ExceptionHandler(value = UserNotFoundException.class)
   @ResponseBody
-  public RestErrorsDTO handleUserNotFound(UserNotFoundException exception) {
-    LOGGER.error("User not found", exception);
+  public RestErrorsDto handleUserNotFound(UserNotFoundException exception) {
+    LOGGER.error("Translating user not found", exception);
 
     String errorMessage = "The user with id %s was not found";
 
-    RestErrorsDTO restErrors = new RestErrorsDTO();
+    RestErrorsDto restErrors = new RestErrorsDto();
 
     exception.getNotFoundUsersIds().forEach(id ->
-        restErrors.addError(new RestErrorDTO(RestErrorConstants.ERR_USER_NOT_FOUND_ERROR,
+        restErrors.addError(new RestErrorDto(RestErrorConstants.ERR_USER_NOT_FOUND_ERROR,
             String.format(errorMessage, id)))
     );
 
@@ -101,13 +115,23 @@ public class RestExceptionTranslator {
   @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler(value = Exception.class)
   @ResponseBody
-  public RestErrorsDTO handleAllExceptions(Exception exception) {
+  public RestErrorsDto handleAllExceptions(Exception exception) {
 
-    LOGGER.error("Internal Server Error", exception);
+    LOGGER.error("Translating internal Server Error", exception);
 
-    return new RestErrorsDTO(
-        new RestErrorDTO(RestErrorConstants.ERR_INTERNAL_SERVER_ERROR,
+    return new RestErrorsDto(
+        new RestErrorDto(RestErrorConstants.ERR_INTERNAL_SERVER_ERROR,
             "Internal Server Error"));
 
+  }
+
+  /**
+   * Get the correspondent localized message for a field error
+   *
+   * @param fieldError error that will be used for search
+   * @return the localized message if found or the default one
+   */
+  private String getLocalizedMessageFromFieldError(FieldError fieldError) {
+    return messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
   }
 }

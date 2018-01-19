@@ -1,0 +1,92 @@
+package com.github.joumenharzli.surveypoc.web.error;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.util.Assert;
+
+/**
+ * A representation for the rest fields errors list
+ *
+ * @author Joumen HARZLI
+ */
+public class RestFieldsErrorsDto implements Serializable {
+
+  private List<RestFieldErrorDto> fieldsErrors;
+
+  /**
+   * Constructor for the rest fields errors entity
+   */
+  public RestFieldsErrorsDto() {
+    fieldsErrors = new ArrayList<>();
+  }
+
+  /**
+   * Constructor for the rest fields errors entity
+   *
+   * @param error first error to add to the list of the fieldsErrors use {@code addError}
+   *              to add other fieldsErrors
+   */
+  public RestFieldsErrorsDto(RestFieldErrorDto error) {
+    this.addError(error);
+  }
+
+  /**
+   * Add a rest field error to the list of fields errors
+   *
+   * @param error error to add to the list
+   */
+  public void addError(RestFieldErrorDto error) {
+    Assert.notNull(error, "Cannot add a null error to the list of fields errors");
+
+    if (fieldsErrors == null) {
+      fieldsErrors = new ArrayList<>();
+    }
+
+    fieldsErrors.add(error);
+  }
+
+  /**
+   * Get the list of the fields errors
+   *
+   * @return list of fields errors
+   */
+  public List<RestFieldErrorDto> getFieldsErrors() {
+    return fieldsErrors;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    RestFieldsErrorsDto that = (RestFieldsErrorsDto) o;
+
+    return new EqualsBuilder()
+        .append(fieldsErrors, that.fieldsErrors)
+        .isEquals();
+  }
+
+  @Override
+  public int hashCode() {
+    return new HashCodeBuilder(17, 37)
+        .append(fieldsErrors)
+        .toHashCode();
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+        .append("fieldsErrors", fieldsErrors)
+        .toString();
+  }
+}

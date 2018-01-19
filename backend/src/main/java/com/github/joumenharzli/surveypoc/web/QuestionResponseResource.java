@@ -11,6 +11,7 @@ import com.github.joumenharzli.surveypoc.domain.Question;
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
 import com.github.joumenharzli.surveypoc.service.UserResponseService;
 import com.github.joumenharzli.surveypoc.service.dto.UserResponseForQuestionDto;
+import com.github.joumenharzli.surveypoc.service.dto.UserResponsesForQuestionListDto;
 
 import static com.github.joumenharzli.surveypoc.web.util.RestUtils.commaDelimitedListToLongList;
 
@@ -57,9 +58,9 @@ public class QuestionResponseResource {
    */
   @PostMapping("/responses/me")
   public List<UserResponseForQuestionDto> saveResponsesOfConnectUserForQuestions(@Valid @RequestBody
-                                                                                     List<UserResponseForQuestionDto> userResponseForQuestions) {
+                                                                                     UserResponsesForQuestionListDto userResponseForQuestions) {
     LOGGER.debug("REST request to save the responses of the connected user for the questions {}", userResponseForQuestions);
-    return userResponseService.saveResponsesOfUserForQuestions(USER_ID, userResponseForQuestions);
+    return userResponseService.saveResponsesOfUserForQuestions(USER_ID, userResponseForQuestions.getResponses());
   }
 
 }
