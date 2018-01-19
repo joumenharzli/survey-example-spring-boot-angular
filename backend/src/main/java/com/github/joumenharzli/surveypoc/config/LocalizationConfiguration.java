@@ -32,7 +32,7 @@ public class LocalizationConfiguration {
   }
 
   /**
-   * Set the source of i18n messages under "resources/i18n/messages"
+   * Set the source of i18n messages under "resources/i18n/messages_[locale].properties"
    *
    * @return instance of {@link ResourceBundleMessageSource}
    */
