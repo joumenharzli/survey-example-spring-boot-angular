@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * User Not Found Exception
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class UserNotFoundException extends RuntimeException {
 

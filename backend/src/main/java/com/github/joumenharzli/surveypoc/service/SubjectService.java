@@ -22,7 +22,7 @@ import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 /**
  * Subject service
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public interface SubjectService {
 

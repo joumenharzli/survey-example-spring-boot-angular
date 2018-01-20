@@ -35,7 +35,7 @@ import com.github.joumenharzli.surveypoc.domain.UserResponse;
 /**
  * JDBC implementation for {@link UserResponseDao}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Repository
 public class JdbcUserResponseDao implements UserResponseDao {

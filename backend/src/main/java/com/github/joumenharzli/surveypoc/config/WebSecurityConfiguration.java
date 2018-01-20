@@ -23,7 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * WebSecurity Configuration
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Configuration
 @EnableWebSecurity

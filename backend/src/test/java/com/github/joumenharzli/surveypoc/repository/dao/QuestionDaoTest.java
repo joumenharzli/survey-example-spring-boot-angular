@@ -29,7 +29,7 @@ import com.github.joumenharzli.surveypoc.domain.Question;
 /**
  * QuestionDaoTest
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

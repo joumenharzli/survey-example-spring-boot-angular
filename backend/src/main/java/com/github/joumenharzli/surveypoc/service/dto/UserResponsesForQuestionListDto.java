@@ -29,7 +29,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * A wrapper for a list of user response for question dto
  * This useful to apply {@code Bean validations}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class UserResponsesForQuestionListDto {
 

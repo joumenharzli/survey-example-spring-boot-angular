@@ -36,7 +36,7 @@ import com.github.joumenharzli.surveypoc.domain.UserResponse;
 /**
  * UserResponseDaoTest
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

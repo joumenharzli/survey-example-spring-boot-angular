@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
  * A representation for the rest error
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class RestErrorDto implements Serializable {
   private String code;

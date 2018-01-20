@@ -24,7 +24,7 @@ import com.github.joumenharzli.surveypoc.service.dto.UserResponseForQuestionDto;
 /**
  * User Response Service
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public interface UserResponseService {
 

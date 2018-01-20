@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * User Dao
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public interface UserDao {
 

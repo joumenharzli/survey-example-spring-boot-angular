@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
 /**
  * A representation for the rest error
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class RestErrorsDto implements Serializable {
 

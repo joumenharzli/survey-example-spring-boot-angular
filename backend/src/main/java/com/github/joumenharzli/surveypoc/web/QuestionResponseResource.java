@@ -33,7 +33,7 @@ import static com.github.joumenharzli.surveypoc.web.util.RestUtils.commaDelimite
 /**
  * Rest Resource for the entities {@link UserResponse} and {@link Question}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @RestController
 @RequestMapping("/api/v1/questions")

@@ -25,7 +25,7 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * User Response For Question Dto
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class UserResponseForQuestionDto {
 

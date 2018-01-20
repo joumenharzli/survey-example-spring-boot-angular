@@ -22,7 +22,7 @@ import com.github.joumenharzli.surveypoc.domain.UserResponse;
 /**
  * User Response Dao
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public interface UserResponseDao {
 

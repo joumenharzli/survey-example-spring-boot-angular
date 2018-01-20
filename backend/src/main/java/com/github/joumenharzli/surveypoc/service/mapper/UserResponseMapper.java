@@ -29,7 +29,7 @@ import com.github.joumenharzli.surveypoc.service.dto.UserResponseForQuestionDto;
 /**
  * Mapper for {@link UserResponse} and {@link UserResponseForQuestionDto}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Mapper(componentModel = "spring")
 @Service

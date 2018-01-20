@@ -23,7 +23,7 @@ import com.github.joumenharzli.surveypoc.domain.User;
 /**
  * Mapper for {@link User}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Mapper(componentModel = "spring")
 @Service

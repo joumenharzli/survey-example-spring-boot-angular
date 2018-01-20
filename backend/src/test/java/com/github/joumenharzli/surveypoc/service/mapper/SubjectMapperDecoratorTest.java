@@ -32,7 +32,7 @@ import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 /**
  * SubjectMapperDecoratorTest
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

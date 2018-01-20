@@ -30,7 +30,7 @@ import com.github.joumenharzli.surveypoc.service.mapper.SubjectMapper;
 /**
  * A simple implementation for {@link SubjectService}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Service
 public class SimpleSubjectService implements SubjectService {

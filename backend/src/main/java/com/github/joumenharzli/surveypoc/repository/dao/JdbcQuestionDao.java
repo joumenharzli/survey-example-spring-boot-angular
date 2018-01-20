@@ -31,7 +31,7 @@ import com.github.joumenharzli.surveypoc.domain.Question;
 /**
  * JDBC implementation for {@link QuestionDao}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Repository
 public class JdbcQuestionDao implements QuestionDao {

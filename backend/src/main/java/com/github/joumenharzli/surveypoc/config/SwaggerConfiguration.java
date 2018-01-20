@@ -35,7 +35,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Swagger Configuration
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Configuration
 @EnableSwagger2

@@ -28,7 +28,7 @@ import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 /**
  * Mapper for {@link Subject} and {@link SubjectDto}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Mapper(componentModel = "spring")
 @DecoratedWith(SubjectMapperDecorator.class)

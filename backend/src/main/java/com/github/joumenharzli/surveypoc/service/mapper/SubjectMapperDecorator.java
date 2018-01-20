@@ -31,7 +31,7 @@ import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
  * A decorator for the mapper for {@link Subject} and {@link SubjectDto}
  * for custom methods
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public abstract class SubjectMapperDecorator implements SubjectMapper {
 

@@ -40,7 +40,7 @@ import com.github.joumenharzli.surveypoc.service.mapper.UserResponseMapper;
 /**
  * A simple implementation for {@link UserResponseService}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Service
 public class SimpleUserResponseService implements UserResponseService {

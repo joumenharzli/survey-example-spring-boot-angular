@@ -18,7 +18,7 @@ package com.github.joumenharzli.surveypoc.web.error;
 /**
  * Constants for rest error
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public final class RestErrorConstants {
 

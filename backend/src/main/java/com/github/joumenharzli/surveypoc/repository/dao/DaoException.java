@@ -18,7 +18,7 @@ package com.github.joumenharzli.surveypoc.repository.dao;
 /**
  * This exception encapsulates SQLs related exceptions
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class DaoException extends RuntimeException {
   /**

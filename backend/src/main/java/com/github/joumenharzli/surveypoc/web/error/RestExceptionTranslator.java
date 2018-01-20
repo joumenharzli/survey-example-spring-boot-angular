@@ -36,7 +36,7 @@ import com.github.joumenharzli.surveypoc.exception.UserNotFoundException;
 /**
  * Translate exceptions to {@link RestErrorsDto}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @ControllerAdvice
 public class RestExceptionTranslator {

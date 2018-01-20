@@ -22,7 +22,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
  * Question Dto
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class QuestionDto {
 

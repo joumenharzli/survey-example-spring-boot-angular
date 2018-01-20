@@ -26,7 +26,7 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 /**
  * Localization Configuration
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Configuration
 public class LocalizationConfiguration {

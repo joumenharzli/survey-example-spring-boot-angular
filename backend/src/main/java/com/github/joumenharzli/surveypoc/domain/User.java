@@ -22,7 +22,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
  * User entity
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class User {
 

@@ -29,7 +29,7 @@ import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 /**
  * Rest resource for subject entity
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @RestController
 @RequestMapping("/api/v1/subjects")

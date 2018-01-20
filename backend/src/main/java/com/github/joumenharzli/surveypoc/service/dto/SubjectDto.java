@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
 /**
  * Subject Dto
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class SubjectDto {
   private Long id;

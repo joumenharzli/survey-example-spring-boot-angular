@@ -23,7 +23,7 @@ import org.springframework.util.StringUtils;
 /**
  * Utils for Rest Controllers
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public final class RestUtils {
 

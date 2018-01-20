@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
 /**
  * JDBC implementation for {@link UserDao}
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 @Repository
 public class JdbcUserDao implements UserDao {

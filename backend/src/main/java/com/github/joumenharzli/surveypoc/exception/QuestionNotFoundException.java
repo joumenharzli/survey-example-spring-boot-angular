@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Question Not Found Exception
  *
- * @author Joumen HARZLI
+ * @author Joumen Harzli
  */
 public class QuestionNotFoundException extends RuntimeException {
 
