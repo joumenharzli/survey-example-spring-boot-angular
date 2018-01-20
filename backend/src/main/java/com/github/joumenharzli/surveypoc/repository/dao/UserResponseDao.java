@@ -15,10 +15,21 @@ public interface UserResponseDao {
    * Add a new responses of the user
    *
    * @param userResponses entities to save
+   * @return an array of the number of rows affected by each statement
    * @throws DaoException             if there is an sql exception
    * @throws IllegalArgumentException if any given argument is invalid
    */
-  void addUserResponses(List<UserResponse> userResponses);
+  int[] addUserResponses(List<UserResponse> userResponses);
+
+  /**
+   * Update responses of the user
+   *
+   * @param userResponses entities to save
+   * @return an array of the number of rows affected by each statement
+   * @throws DaoException             if there is an sql exception
+   * @throws IllegalArgumentException if any given argument is invalid
+   */
+  int[] updateUserResponses(List<UserResponse> userResponses);
 
   /**
    * Find the responses for the provided questions and user

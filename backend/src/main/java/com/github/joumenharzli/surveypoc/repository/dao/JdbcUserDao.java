@@ -33,7 +33,7 @@ public class JdbcUserDao implements UserDao {
    * @throws IllegalArgumentException if any given argument is invalid
    */
   @Override
-  public List<Long> findNonSavedUsersByUsersIds(List<Long> usersIds) {
+  public List<Long> findNonExistingUsersByUsersIds(List<Long> usersIds) {
 
     Assert.notEmpty(usersIds, "Ids of the users cannot be null or empty");
     usersIds.forEach(userId -> Assert.notNull(userId, "Id of the user cannot be null"));

@@ -27,5 +27,5 @@ public interface QuestionDao {
    * @throws DaoException             if there is an sql exception
    * @throws IllegalArgumentException if any given argument is invalid
    */
-  List<Long> findNonSavedQuestionsByQuestionsIds(List<Long> questionsIds);
+  List<Long> findNonExistingQuestionsByQuestionsIds(List<Long> questionsIds);
 }

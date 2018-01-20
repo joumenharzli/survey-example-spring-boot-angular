@@ -1,5 +1,6 @@
 package com.github.joumenharzli.surveypoc.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
+import com.github.joumenharzli.surveypoc.domain.User;
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
 import com.github.joumenharzli.surveypoc.exception.QuestionNotFoundException;
 import com.github.joumenharzli.surveypoc.exception.UserNotFoundException;
@@ -93,11 +95,43 @@ public class SimpleUserResponseService implements UserResponseService {
 
     verifyUserAndQuestionsExists(userId, questionsIds);
 
-    userResponseDao.addUserResponses(
-        userResponseMapper.userResponsesForQuestionsDtoToUserResponsesList(userResponsesForQuestions,
-            this.userMapper.toEntityFromId(userId)));
+    User user = this.userMapper.toEntityFromId(userId);
+
+    //@formatter:off
+    List<UserResponse> userResponses = userResponseMapper
+                                      .userResponsesForQuestionsDtoToUserResponsesList(userResponsesForQuestions, user);
+    //@formatter:on
+
+    List<UserResponse> existingUserResponses = userResponseDao
+        .findResponsesOfUserByUserIdAndQuestionIds(userId, questionsIds);
+
+    saveResponsesOfUserForQuestions(userResponses, existingUserResponses);
 
     return findResponsesOfUserByUserIdAndQuestionIds(userId, questionsIds);
+  }
+
+  /**
+   * Update the existing user responses and save the new ones extracted from the provided user reponses
+   *
+   * @param userResponses         the provided user responses
+   * @param existingUserResponses the existing user responses
+   */
+  private void saveResponsesOfUserForQuestions(List<UserResponse> userResponses, List<UserResponse> existingUserResponses) {
+
+    List<UserResponse> userResponsesToAdd = new ArrayList<>();
+    List<UserResponse> userResponsesToUpdate = new ArrayList<>();
+
+    userResponses.forEach((userResponse -> {
+      if (existingUserResponses.contains(userResponse)) {
+        userResponsesToUpdate.add(userResponse);
+      } else {
+        userResponsesToAdd.add(userResponse);
+      }
+    }));
+
+    userResponseDao.addUserResponses(userResponsesToAdd);
+    userResponseDao.updateUserResponses(userResponsesToUpdate);
+
   }
 
   /**
@@ -133,9 +167,9 @@ public class SimpleUserResponseService implements UserResponseService {
    * @throws UserNotFoundException if no user was found
    */
   private void verifyUserExist(Long userId) {
-    List<Long> nonSavedUsersIds = userDao.findNonSavedUsersByUsersIds(Collections.singletonList(userId));
-    if (!CollectionUtils.isEmpty(nonSavedUsersIds)) {
-      throw new UserNotFoundException(nonSavedUsersIds);
+    List<Long> nonExistingUsersIds = userDao.findNonExistingUsersByUsersIds(Collections.singletonList(userId));
+    if (!CollectionUtils.isEmpty(nonExistingUsersIds)) {
+      throw new UserNotFoundException(nonExistingUsersIds);
     }
   }
 
@@ -146,9 +180,9 @@ public class SimpleUserResponseService implements UserResponseService {
    * @throws QuestionNotFoundException if no question was found
    */
   private void verifyQuestionsExist(List<Long> questionsIds) {
-    List<Long> nonSavedQuestionsIds = questionDao.findNonSavedQuestionsByQuestionsIds(questionsIds);
-    if (!CollectionUtils.isEmpty(nonSavedQuestionsIds)) {
-      throw new QuestionNotFoundException(nonSavedQuestionsIds);
+    List<Long> nonExistingQuestionsIds = questionDao.findNonExistingQuestionsByQuestionsIds(questionsIds);
+    if (!CollectionUtils.isEmpty(nonExistingQuestionsIds)) {
+      throw new QuestionNotFoundException(nonExistingQuestionsIds);
     }
   }
 

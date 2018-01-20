@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
@@ -30,6 +32,9 @@ public class JdbcUserResponseDao implements UserResponseDao {
       "ur.question_id AS question_id, ur.user_id AS user_id FROM user_responses AS ur WHERE ur.user_id = :user_id " +
       "AND ur.question_id IN (:question_ids) ORDER BY ur.question_id,ur.user_id";
 
+  private static final String UPDATE_USER_RESPONSE = "UPDATE user_responses SET content = :content " +
+      "WHERE user_id = :user.id AND question_id = :question.id";
+
   private final JdbcTemplate jdbcTemplate;
   private final NamedParameterJdbcTemplate parameterJdbcTemplate;
 
@@ -47,16 +52,17 @@ public class JdbcUserResponseDao implements UserResponseDao {
    * Add a new responses of the user
    *
    * @param userResponses entities to save
+   * @return an array of the number of rows affected by each statement
    * @throws DaoException             if there is an sql exception
    * @throws IllegalArgumentException if any given argument is invalid
    */
   @Override
-  public void addUserResponses(List<UserResponse> userResponses) {
+  public int[] addUserResponses(List<UserResponse> userResponses) {
 
     Assert.notEmpty(userResponses, "User responses cannot be null or empty");
 
     try {
-      jdbcTemplate.batchUpdate(INSERT_USER_RESPONSE, userResponseBatchPreparedStatementSetter(userResponses));
+      return jdbcTemplate.batchUpdate(INSERT_USER_RESPONSE, userResponseBatchPreparedStatementSetter(userResponses));
     } catch (Exception exception) {
       throw new DaoException("Unable to add responses of the questions for the user", exception);
     }
@@ -64,9 +70,31 @@ public class JdbcUserResponseDao implements UserResponseDao {
   }
 
   /**
+   * Update responses of the user
+   *
+   * @param userResponses entities to save
+   * @return an array of the number of rows affected by each statement
+   * @throws DaoException             if there is an sql exception
+   * @throws IllegalArgumentException if any given argument is invalid
+   */
+  @Override
+  public int[] updateUserResponses(List<UserResponse> userResponses) {
+
+    Assert.notEmpty(userResponses, "User responses cannot be null or empty");
+
+    SqlParameterSource[] batchParams = SqlParameterSourceUtils.createBatch(userResponses.toArray());
+
+    try {
+      return parameterJdbcTemplate.batchUpdate(UPDATE_USER_RESPONSE, batchParams);
+    } catch (Exception exception) {
+      throw new DaoException("Unable to update responses of the questions for the user", exception);
+    }
+  }
+
+  /**
    * Find the responses for the provided questions and user
    *
-   * @param userId      user who responded
+   * @param userId       user who responded
    * @param questionsIds questions that the user may responded
    * @return list of responses
    * @throws DaoException             if there is an sql exception

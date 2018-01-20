@@ -66,7 +66,7 @@ public class JdbcQuestionDao implements QuestionDao {
    * @throws IllegalArgumentException if any given argument is invalid
    */
   @Override
-  public List<Long> findNonSavedQuestionsByQuestionsIds(List<Long> questionsIds) {
+  public List<Long> findNonExistingQuestionsByQuestionsIds(List<Long> questionsIds) {
 
     Assert.notEmpty(questionsIds, "Ids of the questions cannot be null or empty");
     questionsIds.forEach(questionId -> Assert.notNull(questionId, "Id of the question cannot be null"));

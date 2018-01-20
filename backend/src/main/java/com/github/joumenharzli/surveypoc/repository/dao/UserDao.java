@@ -17,5 +17,5 @@ public interface UserDao {
    * @throws DaoException             if there is an sql exception
    * @throws IllegalArgumentException if any given argument is invalid
    */
-  List<Long> findNonSavedUsersByUsersIds(List<Long> usersIds);
+  List<Long> findNonExistingUsersByUsersIds(List<Long> usersIds);
 }
