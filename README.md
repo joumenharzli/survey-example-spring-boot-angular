@@ -8,7 +8,7 @@
 [![Build Status](https://travis-ci.org/joumenharzli/survey-example-spring-boot-angular.svg?branch=master)](https://travis-ci.org/joumenharzli/survey-example-spring-boot-angular)
 
 ## Overview
-This is a survey example using Spring Boot, Spring JDBC, JSR-303, i18n, MapStruct, Simple Flat Mapper, Angular 5, Reactive Forms, Angular Material and H2
+This is a survey example using Spring Boot, Spring JDBC, Bean Validation, i18n, MapStruct, Simple Flat Mapper, Angular 5, Reactive Forms, Angular Material and H2
 
 ## Launch
 To launch the backend simply run 
