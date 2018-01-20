@@ -24,11 +24,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.util.Assert;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * A representation for the rest error
  *
  * @author Joumen Harzli
  */
+@ApiModel("RestErrorsDto")
 public class RestErrorsDto implements Serializable {
 
   private List<RestErrorDto> errors;

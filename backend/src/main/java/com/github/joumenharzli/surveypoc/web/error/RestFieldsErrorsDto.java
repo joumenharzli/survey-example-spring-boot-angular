@@ -24,30 +24,24 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.util.Assert;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * A representation for the rest fields errors list
  *
  * @author Joumen Harzli
  */
-public class RestFieldsErrorsDto implements Serializable {
+@ApiModel("RestFieldsErrorsDto")
+public class RestFieldsErrorsDto extends RestErrorDto implements Serializable {
 
   private List<RestFieldErrorDto> fieldsErrors;
 
   /**
    * Constructor for the rest fields errors entity
    */
-  public RestFieldsErrorsDto() {
+  public RestFieldsErrorsDto(String code, String message) {
+    super(code, message);
     fieldsErrors = new ArrayList<>();
-  }
-
-  /**
-   * Constructor for the rest fields errors entity
-   *
-   * @param error first error to add to the list of the fieldsErrors use {@code addError}
-   *              to add other fieldsErrors
-   */
-  public RestFieldsErrorsDto(RestFieldErrorDto error) {
-    this.addError(error);
   }
 
   /**
@@ -87,6 +81,7 @@ public class RestFieldsErrorsDto implements Serializable {
     RestFieldsErrorsDto that = (RestFieldsErrorsDto) o;
 
     return new EqualsBuilder()
+        .appendSuper(super.equals(o))
         .append(fieldsErrors, that.fieldsErrors)
         .isEquals();
   }
@@ -94,6 +89,7 @@ public class RestFieldsErrorsDto implements Serializable {
   @Override
   public int hashCode() {
     return new HashCodeBuilder(17, 37)
+        .appendSuper(super.hashCode())
         .append(fieldsErrors)
         .toHashCode();
   }

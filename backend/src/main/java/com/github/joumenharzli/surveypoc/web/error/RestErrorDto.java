@@ -29,16 +29,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class RestErrorDto implements Serializable {
   private String code;
   private String message;
-  private Object meta;
 
   public RestErrorDto(String code, String message) {
     this.code = code;
     this.message = message;
-  }
-
-  public RestErrorDto(String code, String message, Object meta) {
-    this(code, message);
-    this.meta = meta;
   }
 
   public String getCode() {
@@ -47,14 +41,6 @@ public class RestErrorDto implements Serializable {
 
   public String getMessage() {
     return message;
-  }
-
-  public Object getMeta() {
-    return meta;
-  }
-
-  public void setMeta(Object meta) {
-    this.meta = meta;
   }
 
   @Override
@@ -87,10 +73,6 @@ public class RestErrorDto implements Serializable {
     ToStringBuilder builder = new ToStringBuilder(this)
         .append("code", code)
         .append("message", message);
-
-    if (meta != null) {
-      builder.append("meta", meta);
-    }
 
     return builder.toString();
   }

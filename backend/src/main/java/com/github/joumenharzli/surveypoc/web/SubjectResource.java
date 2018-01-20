@@ -25,6 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.joumenharzli.surveypoc.service.SubjectService;
 import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
+import com.github.joumenharzli.surveypoc.web.error.RestFieldsErrorsDto;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * Rest resource for subject entity
@@ -48,6 +53,13 @@ public class SubjectResource {
    *
    * @return the ResponseEntity with status 200 (OK) and the list the subjects and their questions
    */
+  @ApiOperation(notes = "Returns all the found subjects and their questions.",
+      value = "Get all subjects and questions",
+      nickname = "findAllSubjectsAndQuestions")
+  @ApiResponses({
+      /* We need to inject {@link RestFieldsErrorsDto} at least one so springfox can added it globally */
+      @ApiResponse(code = 400, message = "Request content is invalid", response = RestFieldsErrorsDto.class)
+  })
   @GetMapping
   public List<SubjectDto> findAllSubjectsAndQuestions() {
     LOGGER.debug("REST request to get all the subjects and the questions");

@@ -97,21 +97,20 @@ public class RestExceptionTranslator {
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
   @ResponseBody
-  public RestErrorsDto handleValidationExceptions(MethodArgumentNotValidException exception) {
+  public RestFieldsErrorsDto handleValidationExceptions(MethodArgumentNotValidException exception) {
     LOGGER.error("Translating method arguments not valid", exception);
     BindingResult result = exception.getBindingResult();
 
     String errorCode = RestErrorConstants.ERR_VALIDATION_ERROR;
 
-    RestFieldsErrorsDto restFieldsErrors = new RestFieldsErrorsDto();
+    RestFieldsErrorsDto restFieldsErrors = new RestFieldsErrorsDto(errorCode, getLocalizedMessageFromErrorCode(errorCode));
 
     List<FieldError> fieldErrors = result.getFieldErrors();
     fieldErrors.forEach(fieldError ->
         restFieldsErrors.addError(new RestFieldErrorDto(fieldError.getField(), fieldError.getCode(),
             getLocalizedMessageFromFieldError(fieldError))));
 
-    return new RestErrorsDto(
-        new RestErrorDto(errorCode, getLocalizedMessageFromErrorCode(errorCode), restFieldsErrors));
+    return restFieldsErrors;
 
   }
 

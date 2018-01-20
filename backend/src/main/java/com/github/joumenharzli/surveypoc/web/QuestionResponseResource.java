@@ -27,8 +27,13 @@ import com.github.joumenharzli.surveypoc.domain.UserResponse;
 import com.github.joumenharzli.surveypoc.service.UserResponseService;
 import com.github.joumenharzli.surveypoc.service.dto.UserResponseForQuestionDto;
 import com.github.joumenharzli.surveypoc.service.dto.UserResponsesForQuestionListDto;
+import com.github.joumenharzli.surveypoc.web.error.RestErrorsDto;
 
 import static com.github.joumenharzli.surveypoc.web.util.RestUtils.commaDelimitedListToLongList;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * Rest Resource for the entities {@link UserResponse} and {@link Question}
@@ -58,8 +63,18 @@ public class QuestionResponseResource {
    * @return the ResponseEntity with status 200 (OK) and list of responses of the user
    * and the ResponseEntity with status 500 if the request body is invalid
    */
+  @ApiOperation(notes = "Returns all the found responses of the connected user for the provided questions.",
+      value = "Get all responses of the connected user for the questions",
+      nickname = "getResponsesOfConnectUserForQuestions")
+  @ApiResponses({
+      @ApiResponse(code = 404, message = "Question or user not found", response = RestErrorsDto.class),
+  })
   @GetMapping("/{questionsId}/responses/me")
-  public List<UserResponseForQuestionDto> getResponsesOfConnectUserForQuestions(@PathVariable("questionsId") String questionsId) {
+  public List<UserResponseForQuestionDto> getResponsesOfConnectUserForQuestions(
+      @ApiParam(value = "A comma separated ids of the questions that the user may responded example: 1, 2, 3",
+          required = true)
+      @PathVariable("questionsId") String questionsId) {
+
     LOGGER.debug("REST request to get the responses of the connected user for the questions with ids {}", questionsId);
     return userResponseService.findResponsesOfUserForQuestions(USER_ID, commaDelimitedListToLongList(questionsId));
   }
@@ -71,6 +86,13 @@ public class QuestionResponseResource {
    * @return the ResponseEntity with status 200 (OK) and list of the saved responses of the user
    * and the ResponseEntity with status 500 if the request body is invalid
    */
+  @ApiOperation(notes = "Add and update the responses of the connected user for the provided questions then " +
+      "returns all the list of the saved responses of the user.",
+      value = "Save the responses of the connected user for the provided questions",
+      nickname = "getResponsesOfConnectUserForQuestions")
+  @ApiResponses({
+      @ApiResponse(code = 404, message = "Question or user not found", response = RestErrorsDto.class),
+  })
   @PostMapping("/responses/me")
   public List<UserResponseForQuestionDto> saveResponsesOfConnectUserForQuestions(@Valid @RequestBody
                                                                                      UserResponsesForQuestionListDto userResponseForQuestions) {
