@@ -13,20 +13,18 @@
  *
  */
 
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from './material.module';
+export interface UserResponse {
+  content: string;
+  questionId: number;
+}
 
-import { AppComponent } from './app.component';
-import { SurveyModule } from './survey/survey.module';
+export interface Subject {
+  id: number;
+  label: string;
+  questions: Question[];
+}
 
-@NgModule({
-  imports: [
-    BrowserModule,
-    MaterialModule,
-    SurveyModule
-  ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+export interface Question {
+  id: number;
+  label: string;
+}

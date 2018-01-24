@@ -3,10 +3,10 @@
   "description": "A survey poc using Angular 5, Material, Reactive Forms, Spring Boot..",
   "homepage": "https://github.com/joumenharzli/survey-poc-spring-boot-angular",
   "author": {
-    "name": "Joumen Ali Harzli"
+    "name": "Joumen Harzli"
   },
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "ALv2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -30,6 +30,7 @@
     "@angular/router": "^5.1.3",
     "core-js": "^2.5.3",
     "hammerjs": "2.0.8",
+    "lodash": "^4.17.4",
     "rxjs": "^5.5.6",
     "web-animations-js": "2.3.1",
     "zone.js": "^0.8.19"

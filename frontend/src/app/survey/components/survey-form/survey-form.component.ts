@@ -13,20 +13,17 @@
  *
  */
 
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from './material.module';
+import { Component, OnInit } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { SurveyModule } from './survey/survey.module';
-
-@NgModule({
-  imports: [
-    BrowserModule,
-    MaterialModule,
-    SurveyModule
-  ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent]
+@Component({
+  selector: 'app-survey-form',
+  templateUrl: './survey-form.component.html'
 })
-export class AppModule { }
+export class SurveyFormComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
