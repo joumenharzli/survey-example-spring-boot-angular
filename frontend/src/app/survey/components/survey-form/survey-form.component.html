@@ -13,6 +13,41 @@
   ~
   -->
 
-<p>
-  survey-form works!
-</p>
+<form [formGroup]="form" (submit)="submitForm(form)" *ngIf="_responses">
+
+  <div formGroupName="responses">
+    <mat-accordion>
+
+      <mat-expansion-panel *ngFor="let subject of subjects; trackBy: trackByFn">
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ subject.label }}
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <mat-form-field *ngFor="let question of subject.questions; let questionIndex=index">
+          <label [for]="'question'+questionIndex">{{question.label}}</label>
+
+          <!-- Map responses values to the response content via hidden inputs -->
+          <div [formGroupName]="getFormGroupIndexByQuestionId(question.id)">
+            <input type="hidden" formControlName="questionId" />
+            <input type="text" matInput id="'question'+questionIndex" formControlName="content" [attr.disabled]="submitting ? '' : null"
+            />
+          </div>
+        </mat-form-field>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </div>
+
+  <div class="submit-button">
+    <div class="sm-spinner" *ngIf="submitting">
+      <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+    <button [disabled]="submitting" type="submit" mat-raised-button color="primary">Send</button>
+  </div>
+
+</form>

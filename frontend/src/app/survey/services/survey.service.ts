@@ -53,8 +53,7 @@ export class SurveyService {
    * @returns {Observable<UserResponse[]>} the list of the saved responses of the user
    */
   saveResponsesOfConnectedUserForQuestions(userResponses: UserResponse[]): Observable<UserResponse[]> {
-    return this.httpClient.post<UserResponse[]>(this.QUESTION_API + '/responses/me',
-      { responses: userResponses });
+    return this.httpClient.post<UserResponse[]>(this.QUESTION_API + '/responses/me', userResponses);
   }
 
 }
