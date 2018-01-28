@@ -50,7 +50,7 @@
     <div class="sm-spinner" *ngIf="submitting">
       <mat-spinner [diameter]="30"></mat-spinner>
     </div>
-    <button [disabled]="submitting" type="submit" mat-raised-button color="primary">Send</button>
+    <button [disabled]="submitting || !form.dirty" type="submit" mat-raised-button color="primary">Send</button>
   </div>
 
 </form>
