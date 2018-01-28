@@ -104,7 +104,10 @@ public class SimpleUserResponseService implements UserResponseService {
     LOGGER.debug("Request to save the responses of the user {} for the questions {}", userId, userResponsesForQuestions);
 
     Assert.notNull(userId, "Id of the user cannot be null");
-    Assert.notEmpty(userResponsesForQuestions, "User responses for the questions cannot be null or empty");
+
+    if (userResponsesForQuestions.isEmpty()) {
+      return Collections.emptyList();
+    }
 
     List<Long> questionsIds = userResponseMapper.userResponsesForQuestionsToQuestionsIdsList(userResponsesForQuestions);
 

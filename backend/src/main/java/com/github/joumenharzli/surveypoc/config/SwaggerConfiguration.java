@@ -25,7 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.github.joumenharzli.surveypoc.web.error.RestErrorsDto;
+import com.github.joumenharzli.surveypoc.web.error.RestErrorDto;
 import com.github.joumenharzli.surveypoc.web.error.RestFieldsErrorsDto;
 import com.google.common.collect.Sets;
 
@@ -93,7 +93,7 @@ public class SwaggerConfiguration {
 
 
   private ResponseMessage internalServerError() {
-    return responseMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Something unexpected went wrong", RestErrorsDto.class);
+    return responseMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Something unexpected went wrong", RestErrorDto.class);
   }
 
   private ResponseMessage badRequest() {

@@ -27,7 +27,7 @@ import com.github.joumenharzli.surveypoc.domain.UserResponse;
 import com.github.joumenharzli.surveypoc.service.UserResponseService;
 import com.github.joumenharzli.surveypoc.service.dto.UserResponseForQuestionDto;
 import com.github.joumenharzli.surveypoc.service.dto.UserResponsesForQuestionListDto;
-import com.github.joumenharzli.surveypoc.web.error.RestErrorsDto;
+import com.github.joumenharzli.surveypoc.web.error.RestErrorDto;
 
 import static com.github.joumenharzli.surveypoc.web.util.RestUtils.commaDelimitedListToLongList;
 import io.swagger.annotations.ApiOperation;
@@ -67,7 +67,7 @@ public class QuestionResponseResource {
       value = "Get all responses of the connected user for the questions",
       nickname = "getResponsesOfConnectUserForQuestions")
   @ApiResponses({
-      @ApiResponse(code = 404, message = "Question or user not found", response = RestErrorsDto.class),
+      @ApiResponse(code = 404, message = "Question or user not found", response = RestErrorDto.class),
   })
   @GetMapping("/{questionsId}/responses/me")
   public List<UserResponseForQuestionDto> getResponsesOfConnectUserForQuestions(
@@ -91,7 +91,7 @@ public class QuestionResponseResource {
       value = "Save the responses of the connected user for the provided questions",
       nickname = "getResponsesOfConnectUserForQuestions")
   @ApiResponses({
-      @ApiResponse(code = 404, message = "Question or user not found", response = RestErrorsDto.class),
+      @ApiResponse(code = 404, message = "Question or user not found", response = RestErrorDto.class),
   })
   @PostMapping("/responses/me")
   public List<UserResponseForQuestionDto> saveResponsesOfConnectUserForQuestions(@Valid @RequestBody

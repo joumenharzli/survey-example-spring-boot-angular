@@ -21,11 +21,14 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * A representation for the rest error
  *
  * @author Joumen Harzli
  */
+@ApiModel("RestErrorDto")
 public class RestErrorDto implements Serializable {
   private String code;
   private String message;
