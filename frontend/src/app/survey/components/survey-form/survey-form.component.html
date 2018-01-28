@@ -36,6 +36,9 @@
             <input type="text" matInput id="'question'+questionIndex" formControlName="content" [attr.disabled]="submitting ? '' : null"
             />
           </div>
+
+          <mat-error *ngIf="isContentInvalid(question.id)">{{ getContentErrorMessage(question.id) }}</mat-error>
+
         </mat-form-field>
 
       </mat-expansion-panel>

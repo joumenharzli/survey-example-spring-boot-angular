@@ -18,5 +18,5 @@
 </div>
 
 <ng-template #showForm>
-  <app-survey-form [responses]="responses" [subjects]="subjects" [submitting]="submitting" (onSubmitForm)="submitForm($event)"></app-survey-form>
+  <app-survey-form [responses]="responses" [subjects]="subjects" [submitting]="submitting" [fieldsErrors]="fieldsErrors" (onSubmitForm)="submitForm($event)"></app-survey-form>
 </ng-template>

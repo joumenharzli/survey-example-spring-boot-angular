@@ -18,6 +18,7 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { findIndex, flatMap } from 'lodash';
 
 import { UserResponse, Subject, Question } from '../../models/survey.models';
+import { FieldError } from '../../../shared/models/field-error.model';
 
 @Component({
   selector: 'app-survey-form',
@@ -30,13 +31,25 @@ export class SurveyFormComponent {
 
   _responses: UserResponse[];
 
+  _fieldsErrors: FieldError[];
+
   @Input()
   subjects: Subject[] = [];
 
   @Input()
   set responses(responses: UserResponse[]) {
-    this._responses = responses;
-    this.buildForm();
+    if (responses) {
+      this._responses = responses;
+      this.buildForm();
+    }
+  }
+
+  @Input()
+  set fieldsErrors(fieldsErrors: FieldError[]) {
+    if (fieldsErrors) {
+      this._fieldsErrors = fieldsErrors;
+      this.appendFieldsErrorsToForm(fieldsErrors);
+    }
   }
 
   @Input()
@@ -57,23 +70,25 @@ export class SurveyFormComponent {
     this.form = this.formBuilder.group({ responses: this.formBuilder.array([]) });
     const questions = flatMap(this.subjects.map(subject => subject.questions));
 
-    questions.forEach((question) => {
-      (<FormArray>this.form.get('responses')).push(this.buildResponseFormGroup(question));
-    });
-
+    questions.forEach((question) =>
+      (<FormArray>this.form.get('responses')).push(this.buildResponseFormGroup(question)));
   }
 
-  submitForm(form) {
+  /**
+   * Submit the form
+   * @param {FormGroup} form form to submit
+   */
+  submitForm(form: FormGroup) {
     this.onSubmitForm.emit(form.value);
   }
 
   /**
- * Create a form group that maps to the strcuture of the reponse
- *
- * @param {any} response reponse that will be mapped
- * @returns a form group with the mapped response
- * @memberof AppComponent
- */
+   * Create a form group that maps to the strcuture of the reponse
+   *
+   * @param {Question} response question that will be mapped
+   * @returns a form group with the mapped response
+   * @memberof AppComponent
+   */
   buildResponseFormGroup(question: Question) {
 
     const responseIndex = findIndex(this._responses, response => response.questionId === question.id);
@@ -81,9 +96,37 @@ export class SurveyFormComponent {
 
     return this.formBuilder.group({
       questionId: question.id,
-      content: this.formBuilder.control(
-        response ? response.content : '', [Validators.required])
+      content: this.formBuilder.control(response ? response.content : '')
     });
+
+  }
+
+  /**
+   * Get the first error message of the control
+   * @param questionId id of the question mapped to the control
+   */
+  getContentErrorMessage(questionId: number) {
+    const controlIndex = this.getFormGroupIndexByQuestionId(questionId);
+
+    const fieldPath = 'responses[' + controlIndex + '].content';
+
+    return this._fieldsErrors.filter(fieldError => fieldError.field === fieldPath)
+      .map(fieldError => fieldError.message)[0];
+  }
+
+  /**
+   * Check if the control is invalid
+   * @param questionId id of the question mapped to the control
+   */
+  isContentInvalid(questionId: number) {
+    const controlIndex = this.getFormGroupIndexByQuestionId(questionId);
+
+    const fieldPath = 'responses.' + controlIndex + '.content';
+    const field = this.form.get(fieldPath);
+
+    if (field) {
+      return field.invalid;
+    }
 
   }
 
@@ -104,6 +147,26 @@ export class SurveyFormComponent {
     }
 
     return index;
+  }
+
+  /**
+   * Extract the recived field errors and append them to the form
+   * @param fieldsErrors errors of the fields
+   */
+  private appendFieldsErrorsToForm(fieldsErrors: FieldError[]) {
+    fieldsErrors.forEach((element) => {
+
+      const fieldError = {};
+      fieldError[element.code] = true;
+
+      const mappedField = element.field.replace('[', '.').replace(']', '');
+      const formField = this.form.get(mappedField);
+
+      if (formField) {
+        formField.setErrors(fieldError);
+      }
+
+    });
   }
 
   /**

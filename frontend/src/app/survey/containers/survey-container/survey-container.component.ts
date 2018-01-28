@@ -21,6 +21,8 @@ import 'rxjs/add/operator/switchMap';
 import { SurveyService } from '../../services/survey.service';
 import { Subject, UserResponse, Question } from '../../models/survey.models';
 import { MatSnackBar } from '@angular/material';
+import { FieldError } from '../../../shared/models/field-error.model';
+import { RestError } from '../../../shared/models/rest-error.model';
 
 @Component({
   selector: 'app-survey-container',
@@ -34,6 +36,7 @@ export class SurveyContainerComponent implements OnInit {
 
   subjects: Subject[] = [];
   responses: UserResponse[] = [];
+  fieldsErrors: FieldError[];
 
   constructor(private httpService: SurveyService, private snackBar: MatSnackBar) { }
 
@@ -77,8 +80,12 @@ export class SurveyContainerComponent implements OnInit {
   }
 
   handleHttpError(errorResponse) {
-    const error = errorResponse.error;
+    const error = errorResponse.error as RestError;
+
     if (error && error.message) {
+      if (error.code === 'error.validation') {
+        this.fieldsErrors = error.fieldsErrors;
+      }
       const errorMessage = error.message;
       this.error = error;
       this.openSnackBar(errorMessage);
