@@ -15,7 +15,6 @@
 
 package com.github.joumenharzli.surveypoc.service.mapper;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,10 @@ import org.springframework.util.Assert;
 
 import com.github.joumenharzli.surveypoc.domain.Question;
 import com.github.joumenharzli.surveypoc.domain.Subject;
+import com.github.joumenharzli.surveypoc.service.dto.QuestionDto;
 import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 /**
  * A decorator for the mapper for {@link Subject} and {@link SubjectDto}
@@ -46,23 +48,19 @@ public abstract class SubjectMapperDecorator implements SubjectMapper {
   public List<SubjectDto> questionsToSubjectsDto(List<Question> questions) {
     Assert.notNull(questions, "Cannot map a null list of questions to a list of subject dtos");
 
-    //@formatter:off
-    return questions
-        .stream()
-        /* create a of Map<SubjectDto,List<QuestionDto>> */
-        .collect(Collectors.groupingBy(question -> delegate.toDto(question.getSubject()),
-                                                   LinkedHashMap::new,
-                                                   Collectors.mapping(
-                                                       question -> questionMapper.questionToQuestionDto(question), Collectors.toList())))
-        .entrySet()
-        .stream()
-        /* move the questions list in the map to the list in the subject */
-        .map(e -> {
-          e.getKey().addQuestions(e.getValue());
-          return e.getKey();
-        })
-        .collect(Collectors.toList());
-    //@formatter:on
+    Multimap<Subject, Question> multimap = Multimaps.index(questions, Question::getSubject);
+
+    return multimap.keySet().stream().map(subject -> {
+
+      SubjectDto subjectDto = delegate.toDto(subject);
+
+      List<QuestionDto> questionsDtos = multimap.get(subject).stream()
+          .map(question -> questionMapper.questionToQuestionDto(question)).collect(Collectors.toList());
+
+      subjectDto.addQuestions(questionsDtos);
+      return subjectDto;
+
+    }).collect(Collectors.toList());
   }
 
 }
