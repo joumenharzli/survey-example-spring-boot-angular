@@ -105,7 +105,7 @@ public class SimpleUserResponseService implements UserResponseService {
 
     Assert.notNull(userId, "Id of the user cannot be null");
 
-    if (userResponsesForQuestions.isEmpty()) {
+    if (CollectionUtils.isEmpty(userResponsesForQuestions)) {
       return Collections.emptyList();
     }
 
@@ -147,9 +147,13 @@ public class SimpleUserResponseService implements UserResponseService {
       }
     }));
 
-    userResponseDao.addUserResponses(userResponsesToAdd);
-    userResponseDao.updateUserResponses(userResponsesToUpdate);
+    if (!CollectionUtils.isEmpty(userResponsesToAdd)) {
+      userResponseDao.addUserResponses(userResponsesToAdd);
+    }
 
+    if (!CollectionUtils.isEmpty(userResponsesToUpdate)) {
+      userResponseDao.updateUserResponses(userResponsesToUpdate);
+    }
   }
 
   /**
