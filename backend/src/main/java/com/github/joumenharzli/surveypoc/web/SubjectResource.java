@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codahale.metrics.annotation.Timed;
 import com.github.joumenharzli.surveypoc.service.SubjectService;
 import com.github.joumenharzli.surveypoc.service.dto.SubjectDto;
 import com.github.joumenharzli.surveypoc.web.error.RestFieldsErrorsDto;
@@ -60,6 +61,7 @@ public class SubjectResource {
       /* We need to inject {@link RestFieldsErrorsDto} at least one so springfox can added it globally */
       @ApiResponse(code = 400, message = "Request content is invalid", response = RestFieldsErrorsDto.class)
   })
+  @Timed
   @GetMapping
   public List<SubjectDto> findAllSubjectsAndQuestions() {
     LOGGER.debug("REST request to get all the subjects and the questions");

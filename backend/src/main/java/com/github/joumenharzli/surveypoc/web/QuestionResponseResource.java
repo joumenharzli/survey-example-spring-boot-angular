@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import com.codahale.metrics.annotation.Timed;
 import com.github.joumenharzli.surveypoc.domain.Question;
 import com.github.joumenharzli.surveypoc.domain.UserResponse;
 import com.github.joumenharzli.surveypoc.service.UserResponseService;
@@ -69,6 +70,7 @@ public class QuestionResponseResource {
   @ApiResponses({
       @ApiResponse(code = 404, message = "Question or user not found", response = RestErrorDto.class),
   })
+  @Timed
   @GetMapping("/{questionsId}/responses/me")
   public List<UserResponseForQuestionDto> getResponsesOfConnectUserForQuestions(
       @ApiParam(value = "A comma separated ids of the questions that the user may responded example: 1, 2, 3",
@@ -93,6 +95,7 @@ public class QuestionResponseResource {
   @ApiResponses({
       @ApiResponse(code = 404, message = "Question or user not found", response = RestErrorDto.class),
   })
+  @Timed
   @PostMapping("/responses/me")
   public List<UserResponseForQuestionDto> saveResponsesOfConnectUserForQuestions(@Valid @RequestBody
                                                                                      UserResponsesForQuestionListDto userResponseForQuestions) {
